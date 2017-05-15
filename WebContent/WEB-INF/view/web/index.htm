@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>首页</title>
+#parse("web/common/common_link.htm")
+</head>
+	
+<body>
+	<input id="index_img1" type="hidden" value="$!img1">
+	<input id="index_img2" type="hidden" value="$!img2">
+	<input id="index_img3" type="hidden" value="$!img3">
+	<input id="index_time" type="hidden" value="$!time">
+	<div class="banner" style="background: url($!img1) no-repeat 0px 0px;" imgIndex="1">
+		<div class="container">
+			<div class="header-nav">
+				<nav class="navbar navbar-default">
+					<div class="navbar-header">
+					  <img src="$!viewFile/images/logo.jpg" alt="">
+					</div>
+
+					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="$!contextPath/index.do" target="_blank">网站首页</a></li>
+							<li><a href="$!contextPath/profile.do" target="_blank">关于我们</a></li>
+							<li><a href="$!contextPath/product.do" target="_blank">产品中心</a></li>
+							<li><a href="$!contextPath/sample.do" target="_blank">客户案例</a></li>
+							<li><a href="$!contextPath/invite.do" target="_blank">人才招聘</a></li>
+							<li><a href="$!contextPath/contact.do" target="_blank">联系我们</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<!-- 
+			<div class="banner-info">
+				<h1>我们热衷于塑料焊接工艺</h1>
+				<p>中国驰名，享誉世界，一样的原理，不一样的效益</p>
+				<p>China is famous, renowned in the world, the same principle,not the same benefit</p>
+			</div>
+			-->
+		</div>
+	</div>
+
+	<div class="about-us">
+		<div class="banner-slider">
+			<div class="container">
+				<div class="banner-slider-grids">
+					<div class="col-md-6 banner-slider-grid">
+						<h2>关于我们</h2>
+						<p>上海贺格精密机械有限公司， 是一家专业制造塑胶焊接机系列产品的公司。公司在焊接方案设计，焊接工艺制订和设备制造技术上积累了多年经验。本公司设备涉及折叠滤芯成套生产线，汽车油滤红外线焊接，非标红外线焊接设备，超声波自动化焊接，汽车雷达冲焊一体机，汽车门板热铆机，汽车内饰件专用焊接机，非标自动化装备焊接，机器人自动焊接等  我公司地处中国经济最活跃的长江三角洲，工厂位于上海市奉贤区，靠近杭州湾，东邻东海大桥，区位优势明显，交通便捷。工厂拥用自主研发设计和生产能力，是目前国内最具有发展潜力的塑胶焊接设备生产厂家。</p>
+					</div>
+					<div class="col-md-6 banner-slider-grid">
+						<img src="$!viewFile/images/index-about.jpg" alt="">
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="banner-bottom">
+		<div class="container">
+			<div class="banner-bottom-grids">
+#foreach($productInfoPo in $!productInfoPoLisyt)
+				<div class="col-md-3 banner-bottom-grid">
+					<img src="$!productInfoPo.productImg" alt=" " class="img-responsive" />
+					<div class="banner-bottom-grid-info">
+						<div class="col-xs-4 banner-bottom-grid-infol">
+							<p>.01</p>
+						</div>
+						<div class="col-xs-8 banner-bottom-grid-infor">
+							<h3>$!productInfoPo.productName</h3>
+						</div>
+						<div class="clearfix"> </div>
+						<p class="vel"></p>
+							<div class="more m1">
+								<a href="$!contextPath/product/details.do?productId=$!productInfoPo.id&catagoryId=$!productInfoPo.catagoryId" target="_blank">了解更多</a>
+							</div>
+					</div>
+				</div>
+#end
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>	
+	<div class="banner-slider">
+		<div class="container">
+			<div class="banner-slider-grids">
+				<div class="col-md-6 banner-slider-grid">
+				</div>
+				<div class="col-md-6 banner-slider-grid">
+					<div class="banner-slider-grd">
+						<h2>服务理念和承诺</h2>
+					</div>
+					<div class="banner-slider-grd">
+						<p>不断提高服务质量，逐步形成一套优质我们的服务触及全国每一个角落，在全国任何地方的用户都能得到周到细致的服务。</p>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<div class="testimonials">
+		<div class="container">
+			<h3>合作伙伴</h3>
+			<div class="testimonials-grids">
+				<ul id="flexiselDemo1">
+					<li>
+						<div class="testimonials-grid">
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-1.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-2.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+					<li>
+						<div class="testimonials-grid">
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-3.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-4.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+					<li>
+						<div class="testimonials-grid">
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-5.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-6.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+					<li>
+						<div class="testimonials-grid">
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-7.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-8.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+					<li>
+						<div class="testimonials-grid">
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-9.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-10.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+					<li>
+						<div class="testimonials-grid">
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-11.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-12.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+					<li>
+						<div class="testimonials-grid">
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-13.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="col-xs-5 testimonials-grid-left">
+								<img src="$!viewFile/images/f-14.jpg" alt=" " class="img-responsive" />
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+
+				</ul>
+					<script type="text/javascript">
+							$(window).load(function() {
+								$("#flexiselDemo1").flexisel({
+									visibleItems: 3,
+									animationSpeed: 1000,
+									autoPlay: true,
+									autoPlaySpeed: 3000,    		
+									pauseOnHover: true,
+									enableResponsiveBreakpoints: true,
+									responsiveBreakpoints: { 
+										portrait: { 
+											changePoint:480,
+											visibleItems: 1
+										}, 
+										landscape: { 
+											changePoint:640,
+											visibleItems:2
+										},
+										tablet: { 
+											changePoint:768,
+											visibleItems: 2
+										}
+									}
+								});
+								
+							});
+					</script>
+			</div>
+		</div>
+	</div>
+	#parse("web/common/common_footer.htm")
+<script>
+$(function(){
+	
+	//首页轮播图
+	var banner = $(".banner");
+	var img1 = $("#index_img1").val();
+	var img2 = $("#index_img2").val();
+	var img3 = $("#index_img3").val();
+	var time = $("#index_time").val();
+	if(!!time){
+		setInterval(function(){
+			var imgIndex = banner.attr("imgIndex");
+			if(imgIndex === "1"){
+				banner.attr("style", "background: url("+img2+") no-repeat 0px 0px;");
+				banner.attr("imgIndex", "2");
+			} else if(imgIndex === "2"){
+				banner.attr("style", "background: url("+img3+") no-repeat 0px 0px;");
+				banner.attr("imgIndex", "3");
+				banner.attr("imgIndex", "1");
+			} else if(imgIndex === "3"){
+				banner.attr("style", "background: url("+img1+") no-repeat 0px 0px;");
+				banner.attr("imgIndex", "1");
+			}
+		},time*1000);
+	}
+	
+	
+});	
+</script>
+</body>
+</html>

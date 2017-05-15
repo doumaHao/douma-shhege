@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>增加客户</title>
+  #parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small> </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li><a href="#">客户管理</a></li>
+        <li class="active"><a href="#">增加</a></li>
+      </ol>
+    </section>
+    <div class="box box-info" style="position: fixed; z-index: 10;">
+    	<input id="id" type="hidden" value="$!customerInfoPo.id">
+      <div class="box-header with-border">
+        <h3 class="box-title">增加客户</h3>
+      </div>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label">联系人</label>
+            <div class="col-sm-2">
+              <input id="customerName" type="text" class="form-control" value="$!customerInfoPo.customerName" #if($!oper == "detail") disabled #end>
+            </div>
+            <label for="" class="col-sm-1 control-label">QQ</label>
+            <div class="col-sm-2">
+              <input id="customerTitle" type="text" class="form-control" value="$!customerInfoPo.customerTitle" #if($!oper == "detail") disabled #end>
+            </div>
+            <label for="" class="col-sm-1 control-label">公司</label>
+            <div class="col-sm-3">
+              <input id="customerCompany" type="text" class="form-control" value="$!customerInfoPo.customerCompany" #if($!oper == "detail") disabled #end>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label">座机</label>
+            <div class="col-sm-2">
+              <input id="customerTel" type="text" class="form-control" value="$!customerInfoPo.customerTel" #if($!oper == "detail") disabled #end>
+            </div>
+            <label for="" class="col-sm-1 control-label">手机</label>
+            <div class="col-sm-2">
+              <input id="customerMob" type="text" class="form-control" value="$!customerInfoPo.customerMob" #if($!oper == "detail") disabled #end>
+            </div>
+            <label for="" class="col-sm-1 control-label">邮箱</label>
+            <div class="col-sm-2">
+              <input id="customerMail" type="text" class="form-control" value="$!customerInfoPo.customerMail" #if($!oper == "detail") disabled #end>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label">传真</label>
+            <div class="col-sm-2">
+              <input id="customerFox" type="text" class="form-control" value="$!customerInfoPo.customerFox" #if($!oper == "detail") disabled #end>
+            </div>
+            <label for="" class="col-sm-1 control-label">公司地址</label>
+            <div class="col-sm-2">
+              <input id="companyAddress" type="text" class="form-control" value="$!customerInfoPo.companyAddress" #if($!oper == "detail") disabled #end>
+            </div>
+            <label for="" class="col-sm-1 control-label">公司首页</label>
+            <div class="col-sm-2">
+              <input id="companyLink" type="text" class="form-control" value="$!customerInfoPo.companyLink" #if($!oper == "detail") disabled #end>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label">级别</label>
+            <div class="col-sm-2">
+              <select id="customerLv" class="form-control" #if($!oper == "detail") disabled #end>
+              	<option value="10" #if($!customerInfoPo.customerLv == "10") selected #end>至关重要</option>
+              	<option value="20" #if($!customerInfoPo.customerLv == "20") selected #end>重要</option>
+              	<option value="30" #if($!customerInfoPo.customerLv == "30") selected #end>普通</option>
+              	<option value="40" #if($!customerInfoPo.customerLv == "40") selected #end>不重要</option>
+              	<option value="50" #if($!customerInfoPo.customerLv == "50") selected #end>忽视</option>
+              </select>
+            </div>
+            <label for="" class="col-sm-1 control-label">状态</label>
+            <div class="col-sm-2">
+              <select id="customerState" class="form-control" #if($!oper == "detail") disabled #end>
+              	<option value="10" #if($!customerInfoPo.customerState == "10") selected #end>初期意向</option>
+              	<option value="20" #if($!customerInfoPo.customerState == "20") selected #end>已沟通</option>
+              	<option value="30" #if($!customerInfoPo.customerState == "30") selected #end>交易中</option>
+              	<option value="40" #if($!customerInfoPo.customerState == "40") selected #end>已交易</option>
+              	<option value="50" #if($!customerInfoPo.customerState == "50") selected #end>删除</option>
+              </select>
+            </div>
+            <label for="" class="col-sm-1 control-label">需求</label>
+            <div class="col-sm-2">
+              <input id="customerNeed" type="text" class="form-control" value="$!customerInfoPo.customerNeed" #if($!oper == "detail") disabled #end>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="box-footer">
+#if($!oper == "add" || $!oper == "edit")
+        <button id="saveBtn" type="button" class="btn btn-info">保存</button>
+#end
+      </div>
+    </div>
+#if($!oper == "detail")
+    <!-- --------------------------------- -->
+	  <div class="row" style="margin-left:300px;width:50%;margin-top:300px;">
+	        <div class="col-md-12">
+	          <ul class="timeline">
+	            <li class="time-label">
+	                  <span class="bg-blue">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!nowDate)</span>
+	            </li>
+	            <li style="z-index:10">
+	              <i id="method_add" class="fa fa-plus bg-blue" state="hide"></i>
+	              <i id="method_tel" class="fa fa-tty bg-blue" style="left:-13px;display:none;"></i><!-- 13+X*33 -->
+	              <i id="method_email" class="fa fa-building-o bg-blue" style="left:-46px;display:none;"></i>
+	              <i id="method_visit" class="fa fa-child bg-blue" style="left:-79px;display:none;"></i>
+	              <i id="method_meet" class="fa fa-folder-open bg-blue" style="left:-112px;display:none;"></i>
+	              <div class="timeline-item">
+	              	<span class="time"><i class="fa fa-clock-o"></i> 登记人：郝希文(销售总监)</span>
+	                <div class="timeline-body">
+	                	<textarea id="noteContent" class="form-control"></textarea>
+	                </div>
+	                <div class="timeline-footer">
+	                  <a id="submitNoteBtn" class="btn btn-primary btn-xs">确定</a>
+	                  <a id="cancelNoteBtn" class="btn btn-danger btn-xs">取消</a>
+	                  <div style="float:right;">
+	                  	<input id="fileInputId_node" type="file" name="file">
+	                  	<img id="img_node" class="img-responsive" style="display:none;">
+	                  </div>
+	                </div>
+	              </div>
+	            </li>
+#foreach($customerNote in $!customerNotePoList)
+	            <li class="time-label">
+	                  <span class="bg-green">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!nowDate)</span>
+	            </li>
+	            <li>
+	              <i id="method_add" 
+#if($!customerNote.noteMethod == "TEL") class="fa fa-tty bg-green"
+#elseif($!customerNote.noteMethod == "EMAIL") class="fa fa-building-o bg-green"
+#elseif($!customerNote.noteMethod == "VISIT") class="fa fa-child bg-green"
+#elseif($!customerNote.noteMethod == "MEET") class="fa fa-folder-open bg-green"
+#end
+	               state="hide"></i>
+	              <div class="timeline-item">
+	              	<span class="time"><i class="fa fa-clock-o"></i> 登记人：郝希文(销售总监)</span>
+	                <div class="timeline-body">
+	                	$!customerNote.noteContent
+	                </div>
+	                <div class="timeline-footer">
+	                	<span>附属图片：</span>
+	                	<a href="$!customerNote.noteFile" target="view_window">查看文件</a>
+	                </div>
+	              </div>
+	            </li>
+#end
+				<li>
+	              <i class="fa fa-clock-o bg-gray"></i>
+	            </li>
+	          </ul>
+	        </div>
+	        <div style="background: #fff;width: 200px;position: fixed;left: 250px;border-radius: 5px;top: 404px;">
+	        	<p style="padding-left:10px">项目方案 <a id="a_costomerPlan" href="javascript:void(0);" style="margin-left:10px;text-font:13px;">编辑</a></p>
+	        	<input id="fileInputId_costomerPlan" type="file" name="file" style="display:none;">
+	        	<img id="img_costomerPlan" class="img-responsive" style="display:none;">
+	        	<p style="padding-left:30px">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!customerInfoPo.planTime)</p>
+	        	<p style="padding-left:30px"><a href="$!customerInfoPo.costomerPlan" target="view_window">查看文件</a></p>
+	        	<p style="padding-left:10px">项目报价<a id="a_costomerPrice" href="javascript:void(0);" style="margin-left:10px;text-font:13px;">编辑</a></p>
+	        	<input id="fileInputId_costomerPrice" type="file" name="file" style="display:none;">
+	        	<img id="img_costomerPrice" class="img-responsive" style="display:none;">
+	        	<p style="padding-left:30px">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!customerInfoPo.priceTime)</p>
+	        	<p style="padding-left:30px"><a href="$!customerInfoPo.costomerPrice" target="view_window">查看文件</a></p>
+	        	<p style="padding-left:10px">项目合同<a id="a_customerContract"href="javascript:void(0);" style="margin-left:10px;text-font:13px;">编辑</a></p>
+	        	<input id="fileInputId_customerContract" type="file" name="file" style="display:none;">
+	        	<img id="img_customerContract" class="img-responsive" style="display:none;">
+	        	<p style="padding-left:30px">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!customerInfoPo.contractTime)</p>
+	        	<p style="padding-left:30px"><a href="$!customerInfoPo.customerContract" target="view_window">查看文件</a></p>
+	        </div>
+	        <div style="background: #fff;width: 300px;position: fixed;right: 150px;border-radius: 5px;top: 404px;padding-right: 10px;">
+	        	<p style="padding-left:10px">客户投资<a id="update_costomerCost" href="javascript:void(0);" style="margin-left:10px;text-font:13px;">编辑</a></p>
+	        	<p style="padding-left:30px"><input id="costomerCost" type="text" class="form-control" value="$!customerInfoPo.costomerCost"></p>
+	        	<p style="padding-left:10px">客户备注<a id="update_costomerMark" href="javascript:void(0);" style="margin-left:10px;text-font:13px;">编辑</a></p>
+	        	<p style="padding-left:30px"><textarea id="costomerMark" rows="10" class="form-control" value="$!customerInfoPo.costomerMark"></textarea></p>
+	        </div>
+	      </div>
+	  <!-- --------------------------------- -->
+#end
+  </div>
+  
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+
+$(function(){
+	
+	//保存
+	$("#saveBtn").click(function(){
+		var customerName = $("#customerName").val();
+		var customerTitle = $("#customerTitle").val();
+		var customerCompany = $("#customerCompany").val();
+		var customerTel = $("#customerTel").val();
+		var customerMob = $("#customerMob").val();
+		var customerMail = $("#customerMail").val();
+		var customerFox = $("#customerFox").val();
+		var companyAddress = $("#companyAddress").val();
+		var companyLink = $("#companyLink").val();
+		var customerLv = $("#customerLv").val();
+		var customerState = $("#customerState").val();
+		var customerNeed = $("#customerNeed").val();
+		var id = $("#id").val();
+		
+#if($!oper == "edit")
+		if(!id){
+			alert("数据异常");
+			return;
+		}
+#end
+		
+		if(!customerLv || !customerState){
+			alert("客户级别和客户状态不可为空");
+			return;
+		}
+		
+		var data = {
+#if($!oper == "edit")
+				id: id,
+#end
+				customerName: customerName,
+				customerTitle: customerTitle,
+				customerCompany: customerCompany,
+				customerTel: customerTel,
+				customerMob: customerMob,
+				customerMail: customerMail,
+				customerFox: customerFox,
+				companyAddress: companyAddress,
+				companyLink: companyLink,
+				customerLv: customerLv,
+				customerState: customerState,
+				customerNeed: customerNeed
+		};
+		
+#if($!oper == "add")
+		var url = "$!contextPath/customer/add.json";
+#elseif($!oper == "edit")
+		var url = "$!contextPath/customer/update.json";
+#end
+		
+		ajax(
+				url,
+				data,
+				function(data){
+					if(!!data && data.success){
+					  window.location.href = "$!contextPath/customer.do";
+				  } 
+				});
+		
+	});
+	
+	//选择跟进方式
+	$("#method_add").click(function(){
+		var hideFlg = $(this).attr("state") === "hide" ? true:false;
+		if(hideFlg){
+			$(this).attr("state", "show");
+		} else {
+			$(this).attr("state", "hide");
+		}
+		if(hideFlg){
+			setTimeout(function(){
+				$("#method_tel").show();
+				setTimeout(function(){
+					$("#method_email").show();
+					setTimeout(function(){
+						$("#method_visit").show();
+						setTimeout(function(){
+							$("#method_meet").show();
+						});
+					}, 50);
+				}, 50);
+			}, 50);
+		} else {
+			setTimeout(function(){
+				$("#method_meet").hide();
+				setTimeout(function(){
+					$("#method_visit").hide();
+					setTimeout(function(){
+						$("#method_email").hide();
+						setTimeout(function(){
+							$("#method_tel").hide();
+						});
+					}, 50);
+				}, 50);
+			}, 50);
+		}
+	});
+	$("#method_tel").click(function(){
+		$("#method_add").attr("class", "fa fa-tty bg-blue");
+		$("#method_tel").add("#method_email").add("#method_visit").add("#method_meet").hide();
+		$("#method_add").attr("state", "hide");
+	});
+	$("#method_email").click(function(){
+		$("#method_add").attr("class", "fa fa-building-o bg-blue");
+		$("#method_tel").add("#method_email").add("#method_visit").add("#method_meet").hide();
+		$("#method_add").attr("state", "hide");
+	});
+	$("#method_visit").click(function(){
+		$("#method_add").attr("class", "fa fa-child bg-blue");
+		$("#method_tel").add("#method_email").add("#method_visit").add("#method_meet").hide();
+		$("#method_add").attr("state", "hide");
+	});
+	$("#method_meet").click(function(){
+		$("#method_add").attr("class", "fa fa-folder-open bg-blue");
+		$("#method_tel").add("#method_email").add("#method_visit").add("#method_meet").hide();
+		$("#method_add").attr("state", "hide");
+	});
+	
+	//取消跟进
+	$("#cancelNoteBtn").click(function(){
+		$("#noteContent").val("");
+		$("#method_add").attr("state", "hide");
+		$("#method_add").attr("class", "fa fa-plus bg-blue");
+		$("#method_tel").hide();
+		$("#method_email").hide();
+		$("#method_visit").hide();
+		$("#method_meet").hide();
+	});
+	
+	//添加跟进
+	$("#submitNoteBtn").click(function(){
+		var noteContent = $("#noteContent").val();
+		var noteMethod;
+		var method_add_class = $("#method_add").attr("class")
+		if(method_add_class === "fa fa-tty bg-blue"){
+			noteMethod = "TEL";
+		} else if(method_add_class === "fa fa-building-o bg-blue"){
+			noteMethod = "EMAIL";
+		} else if(method_add_class === "fa fa-child bg-blue"){
+			noteMethod = "VISIT";
+		} else if(method_add_class === "fa fa-folder-open bg-blue"){
+			noteMethod = "MEET";
+		}
+		var noteFile = $("#img_node").attr("imgid");
+			
+		if(!noteMethod){
+			alert("请确定本次跟进的方式");
+			return;
+		}
+		if(!noteContent){
+			alert("请输入跟进内容");
+			return;
+		}
+		
+		var data = {
+				customerId: "$!customerInfoPo.id",
+				noteMethod: noteMethod,
+				noteContent: noteContent,
+				noteFile: noteFile
+		};
+		
+		ajax(
+				"$!contextPath/customerNote/add.json",
+				data,
+				function(data){
+					if(!!data && data.success){
+						window.location.href = "$!contextPath/customer/detail.do?oper=detail&id=$!customerInfoPo.id";
+					}
+				});
+	});
+	
+	//跟进文件
+	$("#fileInputId_node").valueChange(function(){
+		CommonImgUpload("fileInputId_node", "img_node");
+	});
+	
+	//项目方案
+	$("#a_costomerPlan").click(function(){
+		$("#fileInputId_costomerPlan").click();
+	});
+	$("#fileInputId_costomerPlan").valueChange(function(){
+		CommonImgUpload("fileInputId_costomerPlan", "img_costomerPlan",function(){
+			var costomerPlan = $("#img_costomerPlan").attr("imgId");
+			ajax(
+					"$!contextPath/customer/updateOther.json",
+					{id:"$!customerInfoPo.id",costomerPlan: costomerPlan},
+					function(data){
+						if(!!data && data.success){
+							window.location.href = "$!contextPath/customer/detail.do?oper=detail&id=$!customerInfoPo.id";
+						}
+					});
+		});
+	});
+	//项目报价
+	$("#a_costomerPrice").click(function(){
+		$("#fileInputId_costomerPrice").click();
+	});
+	$("#fileInputId_costomerPrice").valueChange(function(){
+		CommonImgUpload("fileInputId_costomerPrice", "img_costomerPrice",function(){
+			var costomerPrice = $("#img_costomerPrice").attr("imgId");
+			ajax(
+					"$!contextPath/customer/updateOther.json",
+					{id:"$!customerInfoPo.id",costomerPrice: costomerPrice},
+					function(data){
+						if(!!data && data.success){
+							window.location.href = "$!contextPath/customer/detail.do?oper=detail&id=$!customerInfoPo.id";
+						}
+					});
+		});
+	});
+	//项目合同
+	$("#a_customerContract").click(function(){
+		$("#fileInputId_customerContract").click();
+	});
+	$("#fileInputId_customerContract").valueChange(function(){
+		CommonImgUpload("fileInputId_customerContract", "img_customerContract",function(){
+			var customerContract = $("#img_customerContract").attr("imgId");
+			ajax(
+					"$!contextPath/customer/updateOther.json",
+					{id:"$!customerInfoPo.id",customerContract: customerContract},
+					function(data){
+						if(!!data && data.success){
+							window.location.href = "$!contextPath/customer/detail.do?oper=detail&id=$!customerInfoPo.id";
+						}
+					});
+		});
+	});
+	//投资
+	$("#update_costomerCost").click(function(){
+		var costomerCost = $("#costomerCost").val();
+		var data = {
+				id: "$!customerInfoPo.id",
+				costomerCost: costomerCost
+				};
+		ajax(
+				"$!contextPath/customer/updateOther.json",
+				data,
+				function(data){
+					if(!!data && data.success){
+						window.location.href = "$!contextPath/customer/detail.do?oper=detail&id=$!customerInfoPo.id";
+					}
+		});
+	});
+	//备注
+	$("#update_costomerMark").click(function(){
+		var costomerMark = $("#costomerMark").val();
+		var data = {
+				id: "$!customerInfoPo.id",
+				costomerMark: costomerMark
+				};
+		ajax(
+				"$!contextPath/customer/updateOther.json",
+				data,
+				function(data){
+					if(!!data && data.success){
+						window.location.href = "$!contextPath/customer/detail.do?oper=detail&id=$!customerInfoPo.id";
+					}
+		});
+	});
+	
+});
+
+</script>
+</body>
+</html>

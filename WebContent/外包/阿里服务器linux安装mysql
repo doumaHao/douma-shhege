@@ -1,0 +1,54 @@
+1，先删除阿里预装的mysql
+	1.1，查看安装了哪些mysql  【rpm -qa | grep mysql】
+			将会看到三个安装文件
+	1.2，依次删除这些安装 【rpm -e --nodeps mysql-5.1.73-3.2.alios6.x86_64】
+2，下载mysql【wget http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.33-linux-glibc2.5-x86_64.tar.gz】
+3，解压mysql
+	3.1，解压【tar -zxvf mysql-5.6.33-linux-glibc2.5-x86_64.tar.gz】
+	3.2，复制解压后的mysql目录【cp -r mysql-5.6.33-linux-glibc2.5-x86_64 /usr/local/mysql】
+4，添加用户组和用户
+	4.1，添加用户组【groupadd mysql】
+	4.2，添加用户mysql 到用户组mysql【useradd -g mysql mysql】
+5，安装
+	5.1，安装
+		cd /usr/local/mysql/
+		mkdir ./data/mysql
+		chown -R mysql:mysql ./
+		./scripts/mysql_install_db --user=mysql --datadir=/usr/local/mysql/data/mysql
+		cp support-files/mysql.server /etc/init.d/mysqld
+		chmod 755 /etc/init.d/mysqld
+		cp support-files/my-default.cnf /etc/my.cnf
+	5.2，修改启动脚本
+		vi /etc/init.d/mysqld
+		修改项：
+		basedir=/usr/local/mysql/
+		datadir=/usr/local/mysql/data/mysql
+6，启动服务
+	service mysqld start
+7，测试连接
+	./mysql/bin/mysql -uroot
+8，加入环境变量，编辑 /etc/profile，这样可以在任何地方用mysql命令了
+	export PATH=$PATH:/usr/local/mysql//bin<br>source /etc/profile
+9，启动mysql
+	service mysqld start
+10，关闭mysql
+	service mysqld stop
+11，查看运行状态
+	service mysqld status
+12，修改usr/local/bin配置，使得mysql是全局命令
+	cd /usr/local/bin
+	ln -fs /usr/local/mysql/bin/mysql mysql
+13，修改root密码
+	mysql -uroot -p
+	mysql>use mysql;
+	mysql> update user set password=passworD("test") where user='root';
+	mysql> flush privileges;
+	mysql> exit;
+14，设置mysql允许远程连接
+	mysql -uroot -p
+	mysql>use mysql;
+	mysql>update user set host = '%' where user = 'root';
+	mysql>flush privileges;
+	mysql>quit
+	
+

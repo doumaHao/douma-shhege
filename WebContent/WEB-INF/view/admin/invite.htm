@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>招聘发布</title>
+  #parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small> </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li class="active"><a href="#">招聘发布</a></li>
+      </ol>
+    </section>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">招聘发布</h3>
+      </div>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">招聘发布</label>
+            <div class="col-sm-8">
+              <div class="box-body pad" style="padding:0px;">
+              	<textarea id="advertises_hide" style="display:none;" textId="$!productVo.desId">$!advertises</textarea>
+                <textarea id="advertises" name="advertises" rows="10" cols="80"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="box-footer">
+          <button id="saveBtn" type="button" class="btn btn-info">保存</button>
+        </div>
+    </div>
+  </div>
+
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+
+var advertises_CKEDITOR;
+$(function(){
+  
+	//富文本样式
+	advertises_CKEDITOR = CKEDITOR.replace('advertises');
+	advertises_CKEDITOR.setData($("#advertises_hide").text());
+  
+  //保存
+  $("#saveBtn").click(function(){
+	  var advertises = advertises_CKEDITOR.document.getBody().getHtml();
+	  var advertises_hide = $("#advertises_hide").html();
+	  advertises_hide = advertises_hide.split("&lt;").join("<").split("&gt;").join(">");
+	  var advertisesChangeFlg;
+		if(advertises == advertises_hide){
+			advertisesChangeFlg = "no";
+		} else {
+			advertisesChangeFlg = "yes"
+		}
+		var data = {
+				advertisesChangeFlg: advertisesChangeFlg,
+				advertises: advertises
+		};
+		ajax(
+				"$!contextPath/setInvite.json",
+				data,
+				function(data){
+					if(!!data && data.success){
+						alert("保存成功");
+						window.location.href = "$!contextPath/invite.do";
+					}
+				});
+  });
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.ProductCatagoryDao">
+
+	<resultMap id="ProductCatagoryPo" type="ProductCatagoryPo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="catagory_sort" property="catagorySort" jdbcType="INTEGER" />
+		<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+		<result column="catagory_lv" property="catagoryLv" jdbcType="VARCHAR" />
+		<result column="catagory_name" property="catagoryName" jdbcType="VARCHAR" />
+		<result column="catagory_img" property="catagoryImg" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="topCatagory" parameterType="java.lang.String" resultMap="ProductCatagoryPo">
+		SELECT
+			t.id,
+			t.catagory_sort,
+			t.parent_id,
+			t.catagory_lv,
+			t.catagory_name,
+			t.catagory_img
+		FROM
+			product_catagory t
+		ORDER BY
+			t.catagory_sort
+		LIMIT 0,#{top}
+	</select>
+	
+	<update id="updateProductCatagoryById" parameterType="com.shhege.madel.po.ProductCatagoryPo">
+		UPDATE product_catagory
+	    <set>
+	      <if test="productCatagoryPo.catagorySort != null" >
+	        catagory_sort = #{productCatagoryPo.catagorySort,jdbcType=INTEGER},
+	      </if>
+	      <if test="productCatagoryPo.parentId != null" >
+	        parent_id = #{productCatagoryPo.parentId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="productCatagoryPo.catagoryLv != null" >
+	        catagory_lv = #{productCatagoryPo.catagoryLv,jdbcType=VARCHAR},
+	      </if>
+	      <if test="productCatagoryPo.catagoryName != null" >
+	        catagory_name = #{productCatagoryPo.catagoryName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="productCatagoryPo.catagoryImg != null" >
+	        catagory_img = #{productCatagoryPo.catagoryImg,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    WHERE id = #{productCatagoryPo.id,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<insert id="insertProductCatagory" parameterType="com.shhege.madel.po.ProductCatagoryPo" >
+	    INSERT INTO product_catagory (
+	    	id,
+	    	catagory_sort,
+	    	parent_id,
+	    	catagory_lv,
+	    	catagory_name,
+	    	catagory_img
+	      )
+	    VALUES (
+	    	#{productCatagoryPo.id,jdbcType=VARCHAR},
+	    	#{productCatagoryPo.catagorySort,jdbcType=INTEGER},
+	    	#{productCatagoryPo.parentId,jdbcType=VARCHAR},
+	    	#{productCatagoryPo.catagoryLv,jdbcType=VARCHAR},
+	    	#{productCatagoryPo.catagoryName,jdbcType=VARCHAR},
+	    	#{productCatagoryPo.catagoryImg,jdbcType=TIMESTAMP}
+	      )
+  	</insert>
+  	
+  	<select id="findNameById" parameterType="java.lang.String" resultType="java.lang.String">
+			SELECT
+				t.catagory_name
+			FROM
+				product_catagory t
+			WHERE t.id = #{id}
+		</select>
+	
+</mapper>

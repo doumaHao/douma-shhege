@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+ xmlns:context="http://www.springframework.org/schema/context"  
+ xmlns:p="http://www.springframework.org/schema/p"  
+ xmlns:mvc="http://www.springframework.org/schema/mvc"  
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:tx="http://www.springframework.org/schema/tx"
+ xsi:schemaLocation="
+ 	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+ 	http://www.springframework.org/schema/beans
+ 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ 	http://www.springframework.org/schema/context
+ 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+ 	http://www.springframework.org/schema/mvc
+ 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">  
+      
+    <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->  
+    <mvc:annotation-driven />
+    
+    <!-- 启用spring mvc 注解 -->
+    <context:annotation-config />
+     
+    <!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->  
+    <context:component-scan base-package="com.shhege" />
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	
+	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀  (velocity配置会覆盖viewResolver，所以这里注释了) -->  
+	<!-- <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/view/" p:suffix=".htm" /> -->
+	
+	<!-- 系统启动初始化执行 -->
+	<bean class="com.shhege.core.init.SystemInit"/>
+    
+    <!-- velocty配置试图解析器 -->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <!-- 模板位置，即vm(html)文件的位置 -->
+        <property name="resourceLoaderPath" value="WEB-INF/view"></property>
+        <property name="velocityProperties">
+            <props>
+                <prop key="directive.foreach.counter.name">loopCounter</prop>
+                <prop key="directive.foreach.counter.initial.value">0</prop>
+                <prop key="input.encoding">UTF-8</prop><!-- 指定模板引擎进行模板处理的编码 -->
+                <prop key="output.encoding">UTF-8</prop><!-- 指定输出流的编码 -->
+            </props>
+        </property>
+    </bean>
+    
+    <!-- VelocityViewResolver视图配置 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <!-- 以什么什么结尾，注意不需要跟jsp的视图解析器一样配置prefix,因为前缀和上面的velocityConfigurer配置的位置是一样的 -->
+        <property name="suffix" value=".htm"></property>
+        <property name="prefix" value=""/>
+        <!-- 类型 -->
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="dateToolAttribute" value="dateTool" />
+        <property name="numberToolAttribute" value="numberTool" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+    </bean>
+    
+    <!-- 数据库配置文件位置 -->
+	<context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true" />
+	
+	<!-- 配置dbcp数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 队列中的最小等待数 -->
+		<property name="minIdle" value="${jdbc.minIdle}"></property>
+		<!-- 队列中的最大等待数 -->
+		<property name="maxIdle" value="${jdbc.maxIdle}"></property>
+		<!-- 最长等待时间，单位毫秒 -->
+		<property name="maxWait" value="${jdbc.maxWait}"></property>
+		<!-- 最大活跃数 -->
+		<property name="maxActive" value="${jdbc.maxActive}"></property>
+		<property name="initialSize" value="${jdbc.initialSize}"></property>
+	</bean>
+	
+	<!-- 配置mybitasSqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis.xml"></property>
+		<property name="typeAliasesPackage" value="com.shhege.madel.po" />
+		<property name="mapperLocations" value="classpath*:com/shhege/service/dao/mapper/*.xml" />
+		<!-- <property name="plugins" ref="paginationInterceptor"></property> -->
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.**.dao" />
+	</bean>
+	
+	<!-- 分页拦截器 -->
+	<!-- <bean id="paginationInterceptor" class="com.magfin.risk.web.interceptor.PaginationInterceptor" /> -->
+	
+	<!-- 配置SqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 使用annotation注解方式配置事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- spring文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize"><value>1000000</value></property>
+		<property name="defaultEncoding"><value>UTF-8</value></property> 
+    </bean>
+    
+    <mvc:interceptors>    
+	    <mvc:interceptor>    
+	        <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+	        <mvc:mapping path="/admin/**" />  
+	        <bean id="webInterceptor" class="com.shhege.core.interceptor.WebInterceptor"/>
+	    </mvc:interceptor>  
+	    <!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->  
+	</mvc:interceptors>
+	
+</beans>

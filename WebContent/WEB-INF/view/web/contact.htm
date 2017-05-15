@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>联系我们</title>
+#parse("web/common/common_link.htm")
+</head>
+<body>
+	#parse("web/common/common_banner.htm")
+	<div class="contact">
+		<div class="container">
+			<h3>联系我们</h3>
+			<div class="contact-us1-bottom">
+				<form>
+					<input id="contactName" type="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}" required="">
+					<input id="contactTel" type="text" value="联系方式(电话或者邮箱)" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '联系方式(电话或者邮箱)';}" required="">
+					<textarea id="contactContent" type="text"  onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '内容...';}" required="">内容...</textarea>
+					<input id="submitBtn" type="button" value="提交" class="contact-btn">
+				</form>
+				<div class="home-radio-clock">
+					<h4>在线服务 ONLINE SERVICE</h4>
+					<ul>
+						<li><i class="glyphicon glyphicon-home" aria-hidden="true"></i><a href="javascript:void(0);">$!key_sysParam.key_sysParam_companyTel</a></li>
+						<li><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i><a href="javascript:void(0);">$!key_sysParam.key_sysParam_companyEmail</a></li>
+						<li><i class="glyphicon glyphicon-time" aria-hidden="true"></i><a href="javascript:void(0);">$!key_sysParam.key_sysParam_companyAddress</a></li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	#parse("web/common/common_footer.htm")
+</body>
+<script type="text/javascript">
+$(function(){
+	
+	//提交留言
+	$("#submitBtn").click(function(){
+		var contactName = $("#contactName").val();
+		var contactTel = $("#contactTel").val();
+		var contactContent = $("#contactContent").val();
+		var contactTitle = contactName+"留言";
+		var data = {
+				contactName: contactName,
+				contactTel: contactTel,
+				contactContent: contactContent,
+				contactTitle: contactTitle
+		};
+		ajax("$!contextPath/submitContact.json",
+				data,
+				function(data){	
+					if(!!data && data.success){
+						alert("提交成功");
+						window.location.href = "$!contextPath/contact.do";
+					}
+		});
+	});
+	
+});
+</script>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>联系信息</title>
+  #parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small> </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li class="active"><a href="#">联系信息</a></li>
+        <li class="active"><a href="#">联系详情</a></li>
+      </ol>
+    </section>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">联系详情</h3>
+      </div>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <input id="id" type="hidden" value="$!contactInfoPo.id">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">状态</label>
+            <div class="col-sm-8">
+              <select id="contactState" class="form-control">
+                <option value="10" #if($!contactInfoPo.contactState == "10") selected #end>未查看</option>
+                <option value="20" #if($!contactInfoPo.contactState == "20") selected #end>已查看未回复</option>
+                <option value="30" #if($!contactInfoPo.contactState == "30") selected #end>已回复</option>
+                <option value="10" #if($!contactInfoPo.contactState == "40") selected #end>已关闭</option>
+                <option value="50" #if($!contactInfoPo.contactState == "50") selected #end>星级备注</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-8">
+              <input id="contactName" type="text" class="form-control" value="$!contactInfoPo.contactName">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">联系方式</label>
+            <div class="col-sm-8">
+              <input id="contactTel" type="text" class="form-control" value="$!contactInfoPo.contactTel">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">主题</label>
+            <div class="col-sm-8">
+              <input id="contactTitle" type="text" class="form-control" value="$!contactInfoPo.contactTitle" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">内容</label>
+            <div class="col-sm-8">
+              <textarea id="contactContent" class="form-control" rows="3" placeholder="$!contactInfoPo.contactContent" disabled></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">时间</label>
+            <div class="col-sm-8">
+              <input id="contactTime" type="text" class="form-control" value="$!dateTool.format('yyyy-MM-dd hh:mm:ss', $!contactInfoPo.contactTime)" disabled>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="box-footer">
+          <button id="updateBtn" type="button" class="btn btn-info">保存</button>
+        </div>
+    </div>
+    </div>
+  </div>
+
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+$(function(){
+	
+	//点击保存
+	$("#updateBtn").click(function(){
+		var id = $("#id").val();
+		var contactState = $("#contactState").val();
+		var contactName = $("#contactName").val();
+		var contactTel = $("#contactTel").val();
+		var contactTitle = $("#contactTitle").val();
+		var contactContent = $("#contactContent").val();
+		if(!id){
+			alert("数据异常，请重新打开画面");
+			return;
+		}
+		if(!contactState || !contactName || !contactTel){
+			alert("状态，姓名，联系方式不可为空，请输入");
+			return;
+		}
+		var data = {
+				id: id,
+				contactState: contactState,
+				contactName: contactName,
+				contactTel: contactTel
+		};
+		ajax(
+				"$!contextPath/contact/update.do",
+				data,
+				function(data){
+					if(!!data && data.success){
+						window.location.href = "$!contextPath/contact.do";
+					} else {
+						alert("数据异常");
+					}
+				});
+	});
+	
+});
+</script>
+</body>
+</html>

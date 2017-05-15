@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.TextInfoDao">
+
+	<resultMap id="TextInfoPo" type="TextInfoPo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="text_id" property="paramType" jdbcType="VARCHAR" />
+		<result column="text_content" property="paramKey" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="findContent" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT
+			t.text_content
+		FROM
+			text_info t
+		WHERE
+			t.text_id = #{textId}
+	</select>
+	
+	<update id="updateContent" parameterType="java.lang.String" >
+		UPDATE text_info
+		SET text_content = #{textContent}
+	    WHERE id = #{textId}
+  	</update>
+	
+	<insert id="insert" parameterType="com.shhege.madel.po.TextInfoPo" >
+    INSERT INTO text_info (
+    	id,
+    	text_id,
+    	text_content
+      )
+    VALUES (
+    	#{textInfoPo.id,jdbcType=VARCHAR},
+    	#{textInfoPo.textId,jdbcType=VARCHAR},
+    	#{textInfoPo.textContent,jdbcType=VARCHAR}
+      )
+ 	</insert>
+ 	
+</mapper>

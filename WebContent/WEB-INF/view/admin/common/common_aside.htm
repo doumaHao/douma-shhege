@@ -1,0 +1,38 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <div class="user-panel">
+      <div class="pull-left image">
+#if($!key_sysParam.key_sysParam_userImg)
+        <img id="userImg" src="$!key_sysParam.key_sysParam_userImg" class="img-circle">
+#else
+		<img id="userImg" src="$!viewFile/dist/img/user2-160x160.jpg" class="img-circle">
+#end
+        <input id="fileInputIdUserImg" type="file" name="file" style="display:none;">
+      </div>
+      <div class="pull-left info">
+        <p>郝希文</p>
+        <a href="#"><i class="fa fa-circle text-success"></i> 销售总监</a>
+      </div>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="header">上海贺格</li>
+      <li liId="customer.do" lv="1"><a href="$!contextPath/customer.do"><i class="fa fa-odnoklassniki"></i> <span>客户管理</span></a></li>
+      <li liId="site.do" lv="1"><a href="$!contextPath/site.do"><i class="fa fa-internet-explorer"></i> <span>站点设置</span></a></li>
+      <li liId="index.do" lv="1"><a href="$!contextPath/index.do"><i class="fa fa-bank"></i> <span>首页设置</span></a></li>
+      <li liId="contact.do" lv="1"><a href="$!contextPath/contact.do"><i class="fa fa-envelope"></i> <span>联系信息</span></a></li>
+      <li lv="1" class="treeview">
+        <a href="#">
+          <i class="fa fa-car"></i> <span>产品管理</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li liId="catagory.do" lv="2"><a href="$!contextPath/catagory.do"><i class="fa fa-file-excel-o"></i>分类管理</a></li>
+          <li liId="product.do" lv="2"><a href="$!contextPath/product.do"><i class="fa fa-file-photo-o"></i>产品信息</a></li>
+        </ul>
+      </li>
+      <li liId="invite.do" lv="1"><a href="$!contextPath/invite.do"><i class="fa fa-magic"></i> <span>招聘发布</span></a></li>
+    </ul>
+  </section>
+</aside>

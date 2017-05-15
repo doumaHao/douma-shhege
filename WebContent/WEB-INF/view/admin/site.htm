@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>站点设置</title>
+	#parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small> </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li class="active"><a href="#">站点设置</a></li>
+      </ol>
+    </section>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">站点设置</h3>
+      </div>
+      <form id="formId" class="form-horizontal">
+        <div class="box-body">
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">公司电话</label>
+            <div class="col-sm-8">
+              <input name="companyTel" type="text" class="form-control" value="$!sysParamVo.companyTel" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">公司传真</label>
+            <div class="col-sm-8">
+              <input name="companyFox" type="text" class="form-control" id="inputPassword4" value="$!sysParamVo.companyFox" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">公司邮箱</label>
+            <div class="col-sm-8">
+              <input name="companyEmail" type="text" class="form-control" id="inputPassword4" value="$!sysParamVo.companyEmail" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">公司地址</label>
+            <div class="col-sm-8">
+              <input name="companyAddress" type="text" class="form-control"  value="$!sysParamVo.companyAddress" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">销售部电话</label>
+            <div class="col-sm-8">
+              <input name="saleTel" type="text" class="form-control"  value="$!sysParamVo.saleTel" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">技术部电话</label>
+            <div class="col-sm-8">
+              <input name="technicalTel" type="text" class="form-control"  value="$!sysParamVo.technicalTel" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">备案号</label>
+            <div class="col-sm-8">
+              <input name="recordNo" type="text" class="form-control"  value="$!sysParamVo.recordNo" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">Copyright年份</label>
+            <div class="col-sm-8">
+              <input name="copyRight" type="text" class="form-control"  value="$!sysParamVo.copyRight" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=" " class="col-sm-2 control-label">管理员账号</label>
+            <div class="col-sm-8">
+              <input name="adminUsername" type="text" class="form-control"  value="$!sysParamVo.adminUsername" disabled>
+            </div>
+          </div>
+          <div class="form-group" #if($!readOnly == true) style="display:none;" #end>
+            <label for=" " class="col-sm-2 control-label">管理员密码</label>
+            <div class="col-sm-8">
+              <input name="adminPassword" type="password" class="form-control"  value="" disabled>
+            </div>
+          </div>
+          <div class="form-group" #if($!readOnly == true) style="display:none;" #end>
+            <label for=" " class="col-sm-2 control-label">确认密码</label>
+            <div class="col-sm-8">
+              <input name="adminPassword2" type="password" class="form-control"  value="" disabled>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="box-footer">
+        <button id="updateBtn" class="btn btn-info">修改</button>
+        <button id="saveBtn" class="btn btn-info" #if($!readOnly == true) style="display:none;" #end>保存</button>
+      </div>
+    </div>
+  </div>
+
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+$(function(){
+	//点击修改画面内容可以编辑
+	$("#updateBtn").click(function(){
+		$("input[class='form-control']").removeAttr("disabled");
+		$("[name='adminPassword']").parents(".form-group").show();
+		$("[name='adminPassword2']").parents(".form-group").show();
+		$("#saveBtn").show();
+		$("#updateBtn").hide();
+	});
+	
+	//点击保存
+	$("#saveBtn").click(function(){
+		var companyTel = $("[name='companyTel']").val();
+		var companyFox = $("[name='companyFox']").val();
+		var companyEmail = $("[name='companyEmail']").val();
+		var companyAddress = $("[name='companyAddress']").val();
+		var saleTel = $("[name='saleTel']").val();
+		var technicalTel = $("[name='technicalTel']").val();
+		var recordNo = $("[name='recordNo']").val();
+		var copyRight = $("[name='copyRight']").val();
+		var adminUsername = $("[name='adminUsername']").val();
+		var adminPassword = $("[name='adminPassword']").val();
+		var adminPassword2 = $("[name='adminPassword2']").val();
+		if(adminPassword != adminPassword2){
+			alert("两次输入的密码不一致");
+			return;
+		}
+		var data = {
+				companyTel: companyTel,
+				companyFox: companyFox,
+				companyEmail: companyEmail,
+				companyAddress: companyAddress,
+				saleTel: saleTel,
+				technicalTel: technicalTel,
+				recordNo: recordNo,
+				copyRight: copyRight,
+				adminUsername: adminUsername,
+				adminPassword: adminPassword,
+				adminPassword2: adminPassword2
+				};
+		ajax(
+				"$!contextPath/setSiteParam.json", 
+				data,
+				function(data){
+					if(!!data && data.success){
+						window.location.href = "$!contextPath/site.do";
+					}
+				}
+		);
+	});
+});
+</script>
+</body>
+</html>

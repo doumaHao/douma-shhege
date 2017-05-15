@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>首页设置</title>
+  #parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small> </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li class="active"><a href="#">首页设置</a></li>
+      </ol>
+    </section>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">首页设置</h3>
+      </div>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">首页轮播图 </label>
+            <div class="col-sm-8">
+              <div class="row margin-bottom">
+                <div class="col-sm-4">
+                  <input id="fileInputId1" type="file" name="file" style="display:none;">
+#if($!indexVo.indexImgId1 != "")
+                  <img id="indexImg1" class="img-responsive" src="$!indexVo.indexImgUrl1" imgId="$!indexVo.indexImgId1" >
+#else
+			  					<img id="indexImg1" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!indexVo.indexImgId1">
+#end
+                </div>
+                <div class="col-sm-4">
+                  <input id="fileInputId2" type="file" name="file" style="display:none;">
+#if($!indexVo.indexImgId2 != "")
+                  <img id="indexImg2" class="img-responsive" src="$!indexVo.indexImgUrl2" imgId="$!indexVo.indexImgId2" >
+#else
+				  				<img id="indexImg2" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!indexVo.indexImgId2" >
+#end
+                </div>
+                <div class="col-sm-4">
+                  <input id="fileInputId3" type="file" name="file" style="display:none;">
+#if($!indexVo.indexImgId3 != "")
+                  <img id="indexImg3" class="img-responsive" src="$!indexVo.indexImgUrl3" imgId="$!indexVo.indexImgId3" >
+#else
+				  				<img id="indexImg3" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!indexVo.indexImgId3" >
+#end
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">轮播时间间隔 $!indexVo.indexImgTime</label>
+            <div class="col-sm-8">
+              <select id="indexImgTime" class="form-control" disabled>
+                <option value="5" #if($!indexVo.indexImgTime == 5 || !$!indexVo.indexImgTime) selected #end>5秒</option>
+                <option value="10" #if($!indexVo.indexImgTime == 10) selected #end>10秒</option>
+                <option value="30" #if($!indexVo.indexImgTime == 30) selected #end>30秒</option>
+                <option value="60" #if($!indexVo.indexImgTime == 60) selected #end>60秒</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="box-footer">
+          <button id="updateBtn" class="btn btn-info">修改</button>
+          <button id="saveBtn" class="btn btn-info" #if($!readOnly == true) style="display:none;" #end>保存</button>
+      </div>
+    </div>
+  </div>
+
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+	$(function(){
+		
+		//点击修改画面内容可以编辑
+		$("#updateBtn").click(function(){
+			$("[class='form-control']").removeAttr("disabled");
+			$("#saveBtn").show();
+			$("#updateBtn").hide();
+			
+			//点击图片上传新图片
+			$("#indexImg1").click(function(){
+				$("#fileInputId1").click();
+			});
+			$("#fileInputId1").valueChange(function(){
+				CommonImgUpload("fileInputId1", "indexImg1");
+			});
+			$("#indexImg2").click(function(){
+				$("#fileInputId2").click();
+			});
+			$("#fileInputId2").valueChange(function(){
+				CommonImgUpload("fileInputId2", "indexImg2");
+			});
+			$("#indexImg3").click(function(){
+				$("#fileInputId3").click();
+			});
+			$("#fileInputId3").valueChange(function(){
+				CommonImgUpload("fileInputId3", "indexImg3");
+			});
+		});
+		
+		//点击保存
+		$("#saveBtn").click(function(){
+			var indexImgId1 = $("#indexImg1").attr("imgid");
+			var indexImgId2 = $("#indexImg2").attr("imgid");
+			var indexImgId3 = $("#indexImg3").attr("imgid");
+			var indexImgTime = $("#indexImgTime").val();
+			
+			var data = {
+					indexImgId1: indexImgId1,
+					indexImgId2: indexImgId2,
+					indexImgId3: indexImgId3,
+					indexImgTime: indexImgTime
+			};
+			
+			ajax(
+					"$!contextPath/setIndexParam.json", 
+					data,
+					function(data){
+						if(!!data && data.success){
+							window.location.href = "$!contextPath/index.do";
+						}
+					}		
+			);
+			
+		});
+	});
+</script>
+</body>
+</html>

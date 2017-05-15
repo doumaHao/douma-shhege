@@ -1,0 +1,27 @@
+.plus-tree li{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    padding-left: 50px;
+}
+.plus-tree .active{
+    background: #f4f4f4;
+}
+.puls-date2 .input-group-addon{
+	padding-left: 3px;
+	padding-right: 3px;
+	border-radius: 5px 0 0 5px;
+}
+.puls-date2 .form-control{
+	padding-left: 1px;
+	padding-right: 1px;
+}
+.puls-date2-col{
+	padding-right: 0px;
+}
+a{
+	text-decoration:none;
+}
+.tr-hover{
+	background: #fcf !important;
+}

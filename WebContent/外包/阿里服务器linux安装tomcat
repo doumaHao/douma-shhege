@@ -1,0 +1,8 @@
+1，首先你得有一个linux版本的tomcat，我用的是apache-tomcat-7.0.76.tar.gz
+2，在root下新建soft，然后将tomcat上传到soft文件夹下
+3，解压tomcat：【tar xvf apache-tomcat-7.0.76.tar.gz】
+4，然后进入bin，启动startup.sh
+	【cd apache-tomcat-7.0.76】
+	【cd bin】
+	【./startup.sh】
+	没有报错，去浏览器输入网址 ip:8080,发现tomcat首页，说明启动成功

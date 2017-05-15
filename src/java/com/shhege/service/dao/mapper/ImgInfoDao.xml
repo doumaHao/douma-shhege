@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.ImgInfoDao">
+
+	<resultMap id="ImgInfoPo" type="ImgInfoPo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="img_id" property="imgId" jdbcType="VARCHAR" />
+		<result column="img_name" property="imgName" jdbcType="VARCHAR" />
+		<result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="findImg" parameterType="java.lang.String" resultMap="ImgInfoPo">
+		SELECT
+			t.img_id,
+			t.img_name,
+			t.img_url
+		FROM
+			img_info t
+		WHERE
+			t.img_id = #{imgId}
+	</select>
+	
+	<insert id="insertImg" parameterType="com.shhege.madel.po.ImgInfoPo">
+	    INSERT INTO img_info (
+	    	id,
+	    	img_id,
+	    	img_name,
+	    	img_url
+	      )
+	    VALUES (
+	    	#{id,jdbcType=VARCHAR},
+	    	#{imgId,jdbcType=VARCHAR},
+	    	#{imgName,jdbcType=VARCHAR},
+	    	#{imgUrl,jdbcType=VARCHAR}
+	      )
+  	</insert>
+	
+</mapper>

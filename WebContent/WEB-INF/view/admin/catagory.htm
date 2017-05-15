@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>分类信息</title>
+  #parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small> </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li><a href="#">产品管理</a></li>
+        <li class="active"><a href="#">分类信息</a></li>
+      </ol>
+    </section>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">分类信息</h3>
+      </div>
+      <form class="form-horizontal">
+        <input id="id1" type="hidden" value="$!productCatagoryVo.id1">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类一名称</label>
+            <div class="col-sm-8">
+              <input id="name1" type="text" class="form-control" value="$!productCatagoryVo.name1" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类一图片</label>
+            <div class="col-sm-3">
+              <input id="fileInputId1" type="file" name="file" style="display:none;">
+#if(!!$!productCatagoryVo.imgUrl1)
+              <img id="img1" class="img-responsive" src="$!productCatagoryVo.imgUrl1" imgId="$!productCatagoryVo.imgId1">
+#else
+			  <img id="img1" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!productCatagoryVo.imgId1">
+#end
+            </div>
+          </div>
+        </div>
+        <input id="id2" type="hidden" value="$!productCatagoryVo.id2">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类二名称</label>
+            <div class="col-sm-8">
+              <input id="name2" type="text" class="form-control" value="$!productCatagoryVo.name2" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类二图片</label>
+            <div class="col-sm-3">
+              <input id="fileInputId2" type="file" name="file" style="display:none;">
+#if(!!$!productCatagoryVo.imgUrl2)
+              <img id="img2" class="img-responsive" src="$!productCatagoryVo.imgUrl2" imgId="$!productCatagoryVo.imgId2">
+#else
+			  <img id="img2" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!productCatagoryVo.imgId2">
+#end
+            </div>
+          </div>
+        </div>
+        <input id="id3" type="hidden" value="$!productCatagoryVo.id3">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类三名称</label>
+            <div class="col-sm-8">
+              <input id="name3" type="text" class="form-control" value="$!productCatagoryVo.name3" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类三图片</label>
+            <div class="col-sm-3">
+              <input id="fileInputId3" type="file" name="file" style="display:none;">
+#if(!!$!productCatagoryVo.imgUrl3)
+              <img id="img3" class="img-responsive" src="$!productCatagoryVo.imgUrl3" imgId="$!productCatagoryVo.imgId3">
+#else
+			  <img id="img3" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!productCatagoryVo.imgId3">
+#end
+            </div>
+          </div>
+        </div>
+        <input id="id4" type="hidden" value="$!productCatagoryVo.id4">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类四名称</label>
+            <div class="col-sm-8">
+              <input id="name4" type="text" class="form-control" value="$!productCatagoryVo.name4" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类四图片</label>
+            <div class="col-sm-3">
+              <input id="fileInputId4" type="file" name="file" style="display:none;">
+#if(!!$!productCatagoryVo.imgUrl4)
+              <img id="img4" class="img-responsive" src="$!productCatagoryVo.imgUrl4" imgId="$!productCatagoryVo.imgId4">
+#else
+			  <img id="img4" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!productCatagoryVo.imgId4">
+#end
+            </div>
+          </div>
+        </div>
+        <input id="id5" type="hidden" value="$!productCatagoryVo.id5">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类五名称</label>
+            <div class="col-sm-8">
+              <input id="name5" type="text" class="form-control" value="$!productCatagoryVo.name5" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类五图片</label>
+            <div class="col-sm-3">
+              <input id="fileInputId5" type="file" name="file" style="display:none;">
+#if(!!$!productCatagoryVo.imgUrl5)
+              <img id="img5" class="img-responsive" src="$!productCatagoryVo.imgUrl5" imgId="$!productCatagoryVo.imgId5">
+#else
+			  <img id="img5" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!productCatagoryVo.imgId5">
+#end
+            </div>
+          </div>
+        </div>
+        <input id="id6" type="hidden" value="$!productCatagoryVo.id6">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类六名称</label>
+            <div class="col-sm-8">
+              <input id="name6" type="text" class="form-control" value="$!productCatagoryVo.name6" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">种类六图片 </label>
+            <div class="col-sm-3">
+              <input id="fileInputId6" type="file" name="file" style="display:none;">
+#if(!!$!productCatagoryVo.imgUrl6)
+              <img id="img6" class="img-responsive" src="$!productCatagoryVo.imgUrl6" imgId="$!productCatagoryVo.imgId6">
+#else
+			  <img id="img6" class="img-responsive" src="$!viewFile/dist/img/uploadImg.jpg" imgId="$!productCatagoryVo.imgId6">
+#end
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button id="updateBtn" type="button" class="btn btn-info">修改</button>
+          <button id="saveBtn" type="button" class="btn btn-info" style="display:none;">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+$(function(){
+	
+	//点击修改
+	$("#updateBtn").click(function(){
+		$("input[class='form-control']").removeAttr("disabled");
+		//点击图片上传
+		$("#img1").click(function(){
+			$("#fileInputId1").click();
+		});
+		$("#fileInputId1").valueChange(function(){
+			CommonImgUpload("fileInputId1", "img1");
+		});
+		$("#img2").click(function(){
+			$("#fileInputId2").click();
+		});
+		$("#fileInputId2").valueChange(function(){
+			CommonImgUpload("fileInputId2", "img2");
+		});
+		$("#img3").click(function(){
+			$("#fileInputId3").click();
+		});
+		$("#fileInputId3").valueChange(function(){
+			CommonImgUpload("fileInputId3", "img3");
+		});
+		$("#img4").click(function(){
+			$("#fileInputId4").click();
+		});
+		$("#fileInputId4").valueChange(function(){
+			CommonImgUpload("fileInputId4", "img4");
+		});
+		$("#img5").click(function(){
+			$("#fileInputId5").click();
+		});
+		$("#fileInputId5").valueChange(function(){
+			CommonImgUpload("fileInputId5", "img5");
+		});
+		$("#img6").click(function(){
+			$("#fileInputId6").click();
+		});
+		$("#fileInputId6").valueChange(function(){
+			CommonImgUpload("fileInputId6", "img6");
+		});
+		$("#updateBtn").hide();
+		$("#saveBtn").show();
+	});
+	
+	//点击保存
+	$("#saveBtn").click(function(){
+		var id1 = $("#id1").val();
+		var name1 = $("#name1").val();
+		var imgId1 = $("#img1").attr("imgId");
+		var id2 = $("#id2").val();
+		var name2 = $("#name2").val();
+		var imgId2 = $("#img2").attr("imgId");
+		var id3 = $("#id3").val();
+		var name3 = $("#name3").val();
+		var imgId3 = $("#img3").attr("imgId");
+		var id4 = $("#id4").val();
+		var name4 = $("#name4").val();
+		var imgId4 = $("#img4").attr("imgId");
+		var id5 = $("#id5").val();
+		var name5 = $("#name5").val();
+		var imgId5 = $("#img5").attr("imgId");
+		var id6 = $("#id6").val();
+		var name6 = $("#name6").val();
+		var imgId6 = $("#img6").attr("imgId");
+		
+		var data = {
+				id1: id1,
+				name1: name1,
+				imgId1: imgId1,
+				id2: id2,
+				name2: name2,
+				imgId2: imgId2,
+				id3: id3,
+				name3: name3,
+				imgId3: imgId3,
+				id4: id4,
+				name4: name4,
+				imgId4: imgId4,
+				id5: id5,
+				name5: name5,
+				imgId5: imgId5,
+				id6: id6,
+				name6: name6,
+				imgId6: imgId6
+		}
+		ajax(
+				"$!contextPath/updateCatagory.json",
+				data,
+				function(data){
+					if(!!data && data.success){
+						window.location.href = "$!contextPath/catagory.do";
+					} else {
+						alert("保存失败");
+					}
+				});
+	});
+});
+</script>
+</body>
+</html>

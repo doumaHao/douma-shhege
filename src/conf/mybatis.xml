@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="sysParamPo" type="com.shhege.madel.po.SysParamPo" />
+		<typeAlias alias="imgInfoPo" type="com.shhege.madel.po.ImgInfoPo" />
+		<typeAlias alias="textInfoPo" type="com.shhege.madel.po.TextInfoPo" />
+		<typeAlias alias="contactInfoPo" type="com.shhege.madel.po.ContactInfoPo" />
+		<typeAlias alias="contactInfoFilter" type="com.shhege.madel.filter.ContactInfoFilter" />
+		<typeAlias alias="productCatagoryPo" type="com.shhege.madel.po.ProductCatagoryPo" />
+	</typeAliases>
+</configuration>

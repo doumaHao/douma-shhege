@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.CustomerInfoDao">
+
+	<resultMap id="CustomerInfoPo" type="CustomerInfoPo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+		<result column="customer_title" property="customerTitle" jdbcType="VARCHAR" />
+		<result column="customer_tel" property="customerTel" jdbcType="VARCHAR" />
+		<result column="customer_mob" property="customerMob" jdbcType="VARCHAR" />
+		<result column="customer_mail" property="customerMail" jdbcType="VARCHAR" />
+		<result column="customer_fox" property="customerFox" jdbcType="VARCHAR" />
+		<result column="customer_company" property="customerCompany" jdbcType="VARCHAR" />
+		<result column="company_link" property="companyLink" jdbcType="VARCHAR" />
+		<result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+		<result column="customer_lv" property="customerLv" jdbcType="VARCHAR" />
+		<result column="customer_state" property="customerState" jdbcType="VARCHAR" />
+		<result column="customer_need" property="customerNeed" jdbcType="VARCHAR" />
+		<result column="costomer_cost" property="costomerCost" jdbcType="VARCHAR" />
+		<result column="costomer_mark" property="costomerMark" jdbcType="VARCHAR" />
+		<result column="costomer_plan" property="costomerPlan" jdbcType="VARCHAR" />
+		<result column="plan_time" property="planTime" jdbcType="TIMESTAMP" />
+		<result column="costomer_price" property="costomerPrice" jdbcType="VARCHAR" />
+		<result column="price_time" property="priceTime" jdbcType="TIMESTAMP" />
+		<result column="customer_contract" property="customerContract" jdbcType="VARCHAR" />
+		<result column="contract_time" property="contractTime" jdbcType="TIMESTAMP" />
+		<result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
+		<result column="register_id" property="registerId" jdbcType="VARCHAR" />
+		<result column="delete_flg" property="deleteFlg" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="countOfCustomerInfo" parameterType="com.shhege.madel.filter.CustomerInfoFilter" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM
+			customer_info t
+		<where>
+			delete_flg != '1'
+			<if test="customerInfoFilter.customerName != null and customerInfoFilter.customerName !=''">
+				and t.customer_name like '%${customerInfoFilter.customerName}%'
+			</if>
+			<if test="customerInfoFilter.customerTitle != null and customerInfoFilter.customerTitle !=''">
+				and t.customer_title like '%${customerInfoFilter.customerTitle}%'
+			</if>
+			<if test="customerInfoFilter.customerTel != null and customerInfoFilter.customerTel !=''">
+				and t.customer_tel = ${customerInfoFilter.customerTel}
+			</if>
+			<if test="customerInfoFilter.customerMob != null and customerInfoFilter.customerMob !=''">
+				and t.customer_mob = ${customerInfoFilter.customerMob}
+			</if>
+			<if test="customerInfoFilter.customerLv != null and customerInfoFilter.customerLv !=''">
+				and t.customer_lv = ${customerInfoFilter.customerLv}
+			</if>
+			<if test="customerInfoFilter.customerState != null and customerInfoFilter.customerState !=''">
+				and t.customer_state = ${customerInfoFilter.customerState}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findCustomerInfoByPage" parameterType="com.shhege.madel.filter.CustomerInfoFilter" resultMap="CustomerInfoPo">
+		SELECT
+			t.id,
+			t.customer_name,
+			t.customer_title,
+			t.customer_tel,
+			t.customer_mob,
+			t.customer_mail,
+			t.customer_fox,
+			t.customer_company,
+			t.company_link,
+			t.company_address,
+			t.customer_lv,
+			t.customer_state,
+			t.customer_need,
+			t.costomer_cost,
+			t.costomer_mark,
+			t.costomer_plan,
+			t.plan_time,
+			t.costomer_price,
+			t.price_time,
+			t.customer_contract,
+			t.contract_time,
+			t.register_date,
+			t.register_id,
+			t.delete_flg
+		FROM
+			customer_info t
+		<where>
+			delete_flg != '1'
+			<if test="customerInfoFilter.customerName != null and customerInfoFilter.customerName !=''">
+				and t.customer_name like '%${customerInfoFilter.customerName}%'
+			</if>
+			<if test="customerInfoFilter.customerTitle != null and customerInfoFilter.customerTitle !=''">
+				and t.customer_title like '%${customerInfoFilter.customerTitle}%'
+			</if>
+			<if test="customerInfoFilter.customerTel != null and customerInfoFilter.customerTel !=''">
+				and t.customer_tel = ${customerInfoFilter.customerTel}
+			</if>
+			<if test="customerInfoFilter.customerMob != null and customerInfoFilter.customerMob !=''">
+				and t.customer_mob = ${customerInfoFilter.customerMob}
+			</if>
+			<if test="customerInfoFilter.customerLv != null and customerInfoFilter.customerLv !=''">
+				and t.customer_lv = ${customerInfoFilter.customerLv}
+			</if>
+			<if test="customerInfoFilter.customerState != null and customerInfoFilter.customerState !=''">
+				and t.customer_state = ${customerInfoFilter.customerState}
+			</if>
+		</where>
+		LIMIT #{start}, #{count}
+	</select>
+	
+	<select id="findCustomerInfoById" parameterType="java.lang.String" resultMap="CustomerInfoPo">
+		SELECT
+			t.id,
+			t.customer_name,
+			t.customer_title,
+			t.customer_tel,
+			t.customer_mob,
+			t.customer_mail,
+			t.customer_fox,
+			t.customer_company,
+			t.company_link,
+			t.company_address,
+			t.customer_lv,
+			t.customer_state,
+			t.customer_need,
+			t.costomer_cost,
+			t.costomer_mark,
+			t.costomer_plan,
+			t.plan_time,
+			t.costomer_price,
+			t.price_time,
+			t.customer_contract,
+			t.contract_time,
+			t.register_date,
+			t.register_id,
+			t.delete_flg
+		FROM
+			customer_info t
+		WHERE t.id = #{id}
+	</select>
+	
+	<update id="updateCustomerInfoById" parameterType="com.shhege.madel.po.CustomerInfoPo" >
+		UPDATE customer_info
+    <set >
+      <if test="customerInfoPo.customerName != null" >
+        customer_name = #{customerInfoPo.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerTitle != null" >
+        customer_title = #{customerInfoPo.customerTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerTel != null" >
+        customer_tel = #{customerInfoPo.customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerMob != null" >
+        customer_mob = #{customerInfoPo.customerMob,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerMail != null" >
+        customer_mail = #{customerInfoPo.customerMail,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerFox != null" >
+        customer_fox = #{customerInfoPo.customerFox,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerCompany != null" >
+        customer_company = #{customerInfoPo.customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.companyLink != null" >
+        company_link = #{customerInfoPo.companyLink,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.companyAddress != null" >
+        company_address = #{customerInfoPo.companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerLv != null" >
+        customer_lv = #{customerInfoPo.customerLv,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerState != null" >
+        customer_state = #{customerInfoPo.customerState,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.customerNeed != null" >
+        customer_need = #{customerInfoPo.customerNeed,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.registerDate != null" >
+        register_date = #{customerInfoPo.registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerInfoPo.registerId != null" >
+        register_id = #{customerInfoPo.registerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.deleteFlg != null" >
+        delete_flg = #{customerInfoPo.deleteFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.costomerCost != null" >
+        costomer_cost = #{customerInfoPo.costomerCost,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.costomerMark != null" >
+        costomer_mark = #{customerInfoPo.costomerMark,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.costomerPlan != null" >
+        costomer_plan = #{customerInfoPo.costomerPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.planTime != null" >
+        plan_time = #{customerInfoPo.planTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerInfoPo.costomerPrice != null" >
+        costomer_price = #{customerInfoPo.costomerPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.priceTime != null" >
+        price_time = #{customerInfoPo.priceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerInfoPo.customerContract != null" >
+        customer_contract = #{customerInfoPo.customerContract,jdbcType=VARCHAR},
+      </if>
+      <if test="customerInfoPo.contractTime != null" >
+        contract_time = #{customerInfoPo.contractTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{customerInfoPo.id,jdbcType=VARCHAR}
+ 	</update>
+  	
+ 	<insert id="insertCustomerInfo" parameterType="com.shhege.madel.po.CustomerInfoPo" >
+    INSERT INTO customer_info (
+    	id,
+			customer_name,
+			customer_title,
+			customer_tel,
+			customer_mob,
+			customer_mail,
+			customer_fox,
+			customer_company,
+			company_link,
+			company_address,
+			customer_lv,
+			customer_state,
+			customer_need,
+			register_date,
+			register_id,
+			delete_flg
+      )
+    VALUES (
+    	#{customerInfoPo.id,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerName,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerTitle,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerTel,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerMob,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerMail,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerFox,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerCompany,jdbcType=VARCHAR},
+    	#{customerInfoPo.companyLink,jdbcType=VARCHAR},
+    	#{customerInfoPo.companyAddress,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerLv,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerState,jdbcType=VARCHAR},
+    	#{customerInfoPo.customerNeed,jdbcType=VARCHAR},
+    	#{customerInfoPo.registerDate,jdbcType=TIMESTAMP},
+    	#{customerInfoPo.registerId,jdbcType=VARCHAR},
+    	#{customerInfoPo.deleteFlg,jdbcType=VARCHAR}
+      )
+ 	</insert>
+	
+</mapper>

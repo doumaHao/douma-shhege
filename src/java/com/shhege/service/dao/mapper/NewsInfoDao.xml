@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.NewsInfoDao">
+
+	<resultMap id="NewsInfoPo" type="NewsInfoPo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="news_title" property="newsTitle" jdbcType="VARCHAR" />
+		<result column="news_content" property="newsContent" jdbcType="VARCHAR" />
+		<result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+		<result column="news_state" property="newsState" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="countOfNewsInfo" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			news_info
+	</select>
+	
+	<select id="findNewsInfoByPage" parameterType="int" resultMap="NewsInfoPo">
+		SELECT
+			t.id,
+			t.news_title,
+			t.news_content,
+			t.publish_time,
+			t.news_state
+		FROM
+			news_info t
+		LIMIT #{start}, #{count}
+	</select>
+	
+	<update id="updateNewsInfoById" parameterType="com.shhege.madel.po.NewsInfoPo" >
+		update news_info
+	    <set >
+	      <if test="newsTitle != null" >
+	        news_title = #{newsInfoPo.newsTitle,jdbcType=VARCHAR},
+	      </if>
+	      <if test="newsContent != null" >
+	        news_content = #{newsInfoPo.newsContent,jdbcType=VARCHAR},
+	      </if>
+	      <if test="publishTime != null" >
+	        publish_time = #{newsInfoPo.publishTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="newsState != null" >
+	        news_state = #{newsInfoPo.newsState,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where id = #{newsInfoPo.id,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<insert id="insertNewsInfo" parameterType="com.shhege.madel.po.NewsInfoPo" >
+	    insert into news_info (
+	    	news_title,
+	    	news_content,
+	    	publish_time,
+	    	news_state,
+	      )
+	    values (
+	    	#{newsInfoPo.newsTitle,jdbcType=VARCHAR},
+	    	#{newsInfoPo.newsContent,jdbcType=VARCHAR},
+	    	#{newsInfoPo.publishTime,jdbcType=TIMESTAMP},
+	    	#{newsInfoPo.newsState,jdbcType=VARCHAR}
+	      )
+  	</insert>
+	
+</mapper>

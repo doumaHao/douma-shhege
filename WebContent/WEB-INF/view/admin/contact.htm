@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>联系信息</title>
+  #parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li class="active"><a href="#">联系信息</a></li>
+      </ol>
+    </section>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">联系信息</h3>
+      </div>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label">姓名</label>
+            <div class="col-sm-2">
+              <input id="contactName" type="text" class="form-control" value="$!contactInfoFilter.contactName">
+            </div>
+            <label for="" class="col-sm-1 control-label">电话</label>
+            <div class="col-sm-2">
+              <input id="contactTel" type="text" class="form-control" value="$!contactInfoFilter.contactTel">
+            </div>
+            <label for="" class="col-sm-1 control-label">主题</label>
+            <div class="col-sm-2">
+              <input id="contactTitle" type="text" class="form-control" value="$!contactInfoFilter.contactTitle">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label">时间</label>
+            <div class="col-sm-1 puls-date2-col">
+              <div class="input-group date puls-date2">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input id="contactTimeForm" type="text" class="form-control pull-right" value="$!dateTool.format('yyyy-MM-dd', $!contactInfoFilter.contactTimeForm)">
+              </div>
+            </div>
+            <div class="col-sm-1 puls-date2-col">
+              <div class="input-group date puls-date2">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input id="contactTimeTo" type="text" class="form-control pull-right" value="$!dateTool.format('yyyy-MM-dd', $!contactInfoFilter.contactTimeTo)">
+              </div>
+            </div>
+            <label for="" class="col-sm-1 control-label">状态</label>
+            <div class="col-sm-2">
+              <select id="contactState" class="form-control">	
+              	<option value="" #if(!$!contactInfoFilter.contactState) selected #end>全部</option>
+                <option value="10" #if($!contactInfoFilter.contactState == "10") selected #end>未查看</option>
+                <option value="20" #if($!contactInfoFilter.contactState == "20") selected #end>已查看未回复</option>
+                <option value="30" #if($!contactInfoFilter.contactState == "30") selected #end>已回复</option>
+                <option value="40" #if($!contactInfoFilter.contactState == "40") selected #end>已关闭</option>
+                <option value="50" #if($!contactInfoFilter.contactState == "50") selected #end>星级备注</option>
+              </select>
+            </div>
+            <label for="" class="col-sm-1 control-label"></label>
+            <div class="col-sm-2">
+              <button id="queryBtn" type="button" class="btn btn-info">检索</button>
+              <button id="resetBtn" type="button" class="btn btn-default">重置</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <div class="box">
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>选择</th>
+                  <th>姓名</th>
+                  <th>电话</th>
+                  <th>主题</th>
+                  <th>内容</th>
+                  <th>时间</th>
+                  <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+#foreach($contactInfoPo in $!page.pageData)
+                  <tr>
+                    <td>
+                      <input name="trCheckbox" type="checkbox" class="minimal">
+                      <input name="contactInfoId" type="hidden" value="$!contactInfoPo.id">
+                    </td>
+                    <td>$!contactInfoPo.contactName</td>
+                    <td>$!contactInfoPo.contactTel</td>
+                    <td>$!contactInfoPo.contactTitle</td>
+                    <td>$!contactInfoPo.contactContent</td>
+                    <td>$!dateTool.format('yyyy-MM-dd', $!contactInfoPo.contactTime)</td>
+                    <td>
+                    #if(!$!contactInfoPo.contactState)全部
+                    #elseif($!contactInfoPo.contactState == "10")未查看
+                    #elseif($!contactInfoPo.contactState == "20")已查看未回复
+                    #elseif($!contactInfoPo.contactState == "30")已回复
+                    #elseif($!contactInfoPo.contactState == "40")已关闭
+                    #elseif($!contactInfoPo.contactState == "50")星级备注
+                    #end
+                    </td>
+                  </tr>
+#end
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="box-footer">
+        <button id="updateBtn" type="button" class="btn btn-info">修改</button>
+        <button id="deleteBtn" type="button" class="btn btn-info">删除</button>
+      </div>
+    </div>
+  </div>
+
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+$(function(){
+  //日历控件
+  $('#contactTimeForm').datepicker({
+      language:"zh-CN",
+      format: 'yyyy-mm-dd',
+      autoclose: true
+  });
+  $('#contactTimeTo').datepicker({
+      language:"zh-CN",
+      format: 'yyyy-mm-dd',
+      autoclose: true
+  });
+  //复选框控件
+  $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass: 'iradio_minimal-blue'
+  });
+  
+  //检索
+  $("#queryBtn").click(function(){
+	  var contactName = $("#contactName").val();
+	  var contactTel = $("#contactTel").val();
+	  var contactTitle = $("#contactTitle").val();
+	  var contactTimeForm = $("#contactTimeForm").val();
+	  var contactTimeTo = $("#contactTimeTo").val();
+	  var contactState = $("#contactState").val();
+	  var queryStr = 
+		  "contactName="+contactName+
+		  "&contactTel="+contactTel+
+		  "&contactTitle="+contactTitle+
+		  "&contactTimeForm="+contactTimeForm+
+		  "&contactTimeTo="+contactTimeTo+
+		  "&contactState="+contactState;
+	  window.location.href = "$!contextPath/contact.do?"+queryStr;
+  });
+  //重置
+  $("#resetBtn").click(function(){
+	  $("#contactName").val("");
+	  $("#contactTel").val("");
+	  $("#contactTitle").val("");
+	  $("#contactTimeForm").val("");
+	  $("#contactTimeTo").val("");
+	  $("#contactState").val("");
+  });
+  
+  //修改
+  $("#updateBtn").click(function(){
+	  var contactInfoId = $("[name='trCheckbox']:checked").parents("td").find("[name='contactInfoId']").val();
+	  if(!contactInfoId){
+		  alert("请先选择一条数据进行操作");
+	  } else {
+		  window.location.href = "$!contextPath/contact/detail.do?contactInfoId="+contactInfoId;
+	  }
+  });
+  //删除
+  $("#deleteBtn").click(function(){
+	  var contactInfoId = $("[name='trCheckbox']:checked").parents("td").find("[name='contactInfoId']").val();
+	  if(!contactInfoId){
+		  alert("请先选择一条数据进行操作");
+	  } else {
+		  if(window.confirm('你确定要删除吗？')){
+			  var data = {id: contactInfoId};
+			  ajax(
+					  "$!contextPath/contact/delete.do",
+					  data,
+					  function(data){
+						  if(!!data && data.success){
+							  alert("删除成功");
+							  window.location.href = "$!contextPath/contact.do";
+						  } else {
+							  alert("删除失败");
+						  }
+					  });
+		  }
+	  }
+  });
+  
+  //选择与取消选择
+	$("ins").click(function(){
+		var thiz = $(this).parents("td").find("[name='trCheckbox']");
+		if(thiz.is(":checked")){
+			$("[name='trCheckbox']").iCheck('uncheck');
+			thiz.iCheck('check');
+		} else {
+			
+		}
+	});
+  
+});
+</script>
+</body>
+</html>

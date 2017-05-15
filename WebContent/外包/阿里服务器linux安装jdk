@@ -1,0 +1,8 @@
+1，首先你得有一个linux版本的jdk，我用的是jdk-8u121-linux-x64.tar.gz
+2，在root下新建soft，然后将jdk上传到soft文件夹下
+3，解压jdk：【tar xvf jdk-8u121-linux-x64.tar.gz】
+4，配置环境变量：打开配置文件【vi ~/.bash_profile】，
+	在末尾添加【export JAVA_HOME=/root/soft/jdk1.8.0_121】,(jdk1.8.0_121是刚才解压完成后的jdk文件夹)
+	【export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin】，然后退出保存。
+5，再刷新下配置：【source ~/.bash_profile】
+6，验证安装成功：【java -version】看到jdk的版本号了就是安装成功了

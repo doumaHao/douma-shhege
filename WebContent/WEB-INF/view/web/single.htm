@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>产品中心</title>
+#parse("web/common/common_link.htm")
+<style>
+.left-tab .navbar-nav li{
+	min-width: 200px;
+}
+</style>
+</head>
+	
+<body>
+	#parse("web/common/common_banner.htm")
+	<div class="single">
+		<div class="container">
+			<div class="left-tab">
+				<ul class="nav navbar-nav">
+					<li #if("$!catagoryId" == "$!productCatagoryVo.id1") class="active-li" #end><a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id1">$!productCatagoryVo.name1</a></li>
+					<li #if("$!catagoryId" == "$!productCatagoryVo.id2") class="active-li" #end><a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id2">$!productCatagoryVo.name2</a></li>
+					<li #if("$!catagoryId" == "$!productCatagoryVo.id3") class="active-li" #end><a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id3">$!productCatagoryVo.name3</a></li>
+					<li #if("$!catagoryId" == "$!productCatagoryVo.id4") class="active-li" #end><a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id4">$!productCatagoryVo.name4</a></li>
+					<li #if("$!catagoryId" == "$!productCatagoryVo.id5") class="active-li" #end><a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id5">$!productCatagoryVo.name5</a></li>
+					<li #if("$!catagoryId" == "$!productCatagoryVo.id6") class="active-li" #end><a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id6">$!productCatagoryVo.name6</a></li>
+				</ul>
+			</div>
+			<div class="blog-pag page">
+				<div class="blog-page-grids">
+					<div class="blog-page-grid">
+						<h3>$!productInfoPo.productName</h3>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="blog-page-grids-bottom">
+					<div class="blog-page-grids-bot">
+						<img src="$!productInfoPo.productImg" alt=" " class="img-responsive" style="max-width: 500px;"/>
+					</div>
+					<div class="blog-page-grids-bot1">
+						<p>$!productInfoPo.productDes</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	#parse("web/common/common_footer.htm")
+</body>
+</html>

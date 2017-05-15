@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>产品信息</title>
+  #parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small> </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li><a href="#">产品管理</a></li>
+        <li class="active"><a href="#">产品信息</a></li>
+      </ol>
+    </section>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">产品信息</h3>
+      </div>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <div class="box">
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>选择</th>
+                  <th>排序</th>
+                  <th>产品名称</th>
+                  <th>所属分类</th>
+                  <th>产品图片</th>
+                  <th>产品状态</th>
+                </tr>
+                </thead>
+                <tbody>
+#foreach($productVo in $!productVoList)
+                  <tr>
+                    <td>
+                      <input name="trCheckbox" type="checkbox" class="minimal">
+                      <input name="id" type="hidden" value="$!productVo.id">
+                    </td>
+                    <td>$!productVo.sort</td>
+                    <td>$!productVo.name</td>
+                    <td>$!productVo.catagory</td>
+                    <td>
+                      <div class="col-sm-10">
+                        <a href="$!productVo.imgUrl" target="_blank">查看图片</a>
+                      </div>
+                    </td>
+                    <td>显示</td>
+                  </tr>
+#end
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button id="addBtn" type="button" class="btn btn-info">增加</button>
+          <button id="updateBtn" type="button" class="btn btn-info">修改</button>
+          <button id="deleteBtn" type="button" class="btn btn-info">删除</button>
+          
+          <ul class="pagination pagination-sm no-margin pull-right">
+	          <li><a id="firstPage" href="$!contextPath/product.do?pageIndex=1">首页</a></li>
+	          <li><a id="prePage" href="$!contextPath/product.do?pageIndex=$!page.pagePre">上一页</a></li>
+	          <li><a id="nowPage" href="javascript:void(0);">$!page.pageIndex ( 共$!page.pageCount页 )</a></li>
+	          <li><a id="nextPage" href="$!contextPath/product.do?pageIndex=$!page.pageNext">下一页</a></li>
+	          <li><a id="lastPage" href="$!contextPath/product.do?pageIndex=$!page.pageCount">尾页</a></li>
+       	  </ul>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+$(function(){
+	
+	//复选框样式
+	$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass: 'iradio_minimal-blue'
+  });
+	
+	//详情
+	$("tr").dblclick(function(){
+		var id = $(this).find("[name='id']").val();
+		if(!id){
+			alert("请选择一条数据进行操作");
+			return;
+		}
+		window.location.href = "$!contextPath/product/detail.do?oper=detail&id="+id;
+	});
+	//修改
+	$("#updateBtn").click(function(){
+		var id = $("[name='trCheckbox']:checked").parents("td").find("[name='id']").val();
+		if(!id){
+			alert("请选择一条数据进行操作");
+			return;
+		}
+		window.location.href = "$!contextPath/product/detail.do?oper=edit&id="+id;
+	});
+	//删除
+	$("#deleteBtn").click(function(){
+		var id = $("[name='trCheckbox']:checked").parents("td").find("[name='id']").val();
+		if(!id){
+			alert("请选择一条数据进行操作");
+			return;
+		}
+		var data = {id:id};
+		ajax(
+				"$!contextPath/product/delete.json",
+				data,
+				function(data){
+					if(!!data && data.success){
+						window.location.href = "$!contextPath/product.do";
+					}
+				});
+	});
+	//增加
+	$("#addBtn").click(function(){
+		window.location.href = "$!contextPath/product/detail.do?oper=add";
+	});
+	
+	//选择与取消选择
+	$("ins").click(function(){
+		var thiz = $(this).parents("td").find("[name='trCheckbox']");
+		if(thiz.is(":checked")){
+			$("[name='trCheckbox']").iCheck('uncheck');
+			thiz.iCheck('check');
+		} else {
+			
+		}
+	});
+});
+</script>
+</body>
+</html>

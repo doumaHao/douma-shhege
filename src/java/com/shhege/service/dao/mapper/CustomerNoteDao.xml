@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.CustomerNoteDao">
+
+	<resultMap id="CustomerNotePo" type="CustomerNotePo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+		<result column="note_content" property="noteContent" jdbcType="VARCHAR" />
+		<result column="note_method" property="noteMethod" jdbcType="VARCHAR" />
+		<result column="note_type" property="noteType" jdbcType="VARCHAR" />
+		<result column="note_time" property="noteTime" jdbcType="TIMESTAMP" />
+		<result column="register_id" property="registerId" jdbcType="VARCHAR" />
+		<result column="note_file" property="noteFile" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="findCustomerNotesByConstomerId" parameterType="com.shhege.madel.filter.ContactInfoFilter" resultMap="CustomerNotePo">
+		SELECT
+			t.id,
+			t.customer_id,
+			t.note_content,
+			t.note_method,
+			t.note_type,
+			t.note_time,
+			t.register_id,
+			t.note_file
+		FROM
+			customer_note t
+		WHERE
+			t.customer_id = #{costomerId}
+		ORDER BY t.note_time desc
+	</select>
+  	
+ 	<insert id="insertContactInfo" parameterType="com.shhege.madel.po.CustomerNotePo" >
+    INSERT INTO customer_note (
+    	id,
+    	customer_id,
+    	note_content,
+    	note_method,
+    	note_type,
+    	note_time,
+    	register_id,
+    	note_file
+      )
+    VALUES (
+    	#{customerNotePo.id,jdbcType=VARCHAR},
+    	#{customerNotePo.customerId,jdbcType=VARCHAR},
+    	#{customerNotePo.noteContent,jdbcType=VARCHAR},
+    	#{customerNotePo.noteMethod,jdbcType=VARCHAR},
+    	#{customerNotePo.noteType,jdbcType=VARCHAR},
+    	#{customerNotePo.noteTime,jdbcType=TIMESTAMP},
+    	#{customerNotePo.registerId,jdbcType=VARCHAR},
+    	#{customerNotePo.noteFile,jdbcType=CHAR}
+      )
+ 	</insert>
+	
+</mapper>

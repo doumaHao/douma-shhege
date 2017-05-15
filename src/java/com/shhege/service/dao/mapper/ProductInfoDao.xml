@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.ProductInfoDao">
+
+	<resultMap id="ProductInfoPo" type="ProductInfoPo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="product_sort" property="productSort" jdbcType="INTEGER" />
+		<result column="catagory_id" property="catagoryId" jdbcType="VARCHAR" />
+		<result column="product_name" property="productName" jdbcType="VARCHAR" />
+		<result column="product_img" property="productImg" jdbcType="VARCHAR" />
+		<result column="product_des" property="productDes" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="topGoodsByCatagoty" parameterType="java.lang.String" resultMap="ProductInfoPo">
+		SELECT
+			t.id,
+			t.product_sort,
+			t.catagory_id,
+			t.product_name,
+			t.product_img,
+			t.product_des
+		FROM
+			product_info t
+		WHERE
+			t.catagory_id = #{catagoryId}
+		ORDER BY
+			t.product_sort
+		LIMIT 0,#{top}
+	</select>
+	
+	<select id="countOfProductInfo" parameterType="com.shhege.madel.filter.ProductInfoFilter" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		FROM
+			product_info t
+		<where>
+			<if test="productInfoFilter.catagoryId != null and productInfoFilter.catagoryId !=''">
+				and t.catagory_id = ${productInfoFilter.catagoryId}
+			</if>
+			<if test="productInfoFilter.productName != null and productInfoFilter.productName !=''">
+				and t.product_name like '%${productInfoFilter.productName}%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="findProductInfoByPage" parameterType="com.shhege.madel.filter.ProductInfoFilter" resultMap="ProductInfoPo">
+		SELECT
+			t.id,
+			t.product_sort,
+			t.catagory_id,
+			t.product_name,
+			t.product_img,
+			t.product_des
+		FROM
+			product_info t
+		<where>
+			<if test="productInfoFilter.catagoryId != null and productInfoFilter.catagoryId !=''">
+				and t.catagory_id = ${productInfoFilter.catagoryId}
+			</if>
+			<if test="productInfoFilter.productName != null and productInfoFilter.productName !=''">
+				and t.product_name like '%${productInfoFilter.productName}%'
+			</if>
+		</where>
+		ORDER BY t.catagory_id asc, t.product_sort asc
+		LIMIT #{start}, #{count}
+	</select>
+	
+	<select id="findProductInfoById" parameterType="java.lang.String" resultMap="ProductInfoPo">
+		SELECT
+			t.id,
+			t.product_sort,
+			t.catagory_id,
+			t.product_name,
+			t.product_img,
+			t.product_des
+		FROM
+			product_info t
+		WHERE
+			t.id = #{id}
+	</select>
+	
+	<update id="updateProductInfoById" parameterType="com.shhege.madel.po.ProductInfoPo" >
+		UPDATE product_info
+	    <set >
+	      <if test="productInfoPo.productSort != null" >
+	        product_sort = #{productInfoPo.productSort,jdbcType=INTEGER},
+	      </if>
+	      <if test="productInfoPo.catagoryId != null" >
+	        catagory_id = #{productInfoPo.catagoryId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="productInfoPo.productName != null" >
+	        product_name = #{productInfoPo.productName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="productInfoPo.productImg != null" >
+	        product_img = #{productInfoPo.productImg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="productInfoPo.productDes != null" >
+	        product_des = #{productInfoPo.productDes,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    WHERE id = #{productInfoPo.id,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<insert id="insertProductInfo" parameterType="com.shhege.madel.po.ProductInfoPo" >
+	    INSERT INTO product_info (
+	    	id,
+				product_sort,
+				catagory_id,
+				product_name,
+				product_img,
+				product_des
+	      )
+	    VALUES (
+	    	#{productInfoPo.id,jdbcType=VARCHAR},
+	    	#{productInfoPo.productSort,jdbcType=INTEGER},
+	    	#{productInfoPo.catagoryId,jdbcType=VARCHAR},
+	    	#{productInfoPo.productName,jdbcType=VARCHAR},
+	    	#{productInfoPo.productImg,jdbcType=VARCHAR},
+	    	#{productInfoPo.productDes,jdbcType=VARCHAR}
+	      )
+  	</insert>
+  	
+  	<delete id="deleteProductInfo" parameterType="java.lang.String">
+		delete from 
+			product_info
+		where 
+			id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+</mapper>

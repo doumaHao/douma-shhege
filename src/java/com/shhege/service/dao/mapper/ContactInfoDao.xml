@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.ContactInfoDao">
+
+	<resultMap id="ContactInfoPo" type="ContactInfoPo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+		<result column="contact_tel" property="contactTel" jdbcType="VARCHAR" />
+		<result column="contact_content" property="contactContent" jdbcType="VARCHAR" />
+		<result column="contact_title" property="contactTitle" jdbcType="VARCHAR" />
+		<result column="contact_time" property="contactTime" jdbcType="TIMESTAMP" />
+		<result column="contact_state" property="contactState" jdbcType="VARCHAR" />
+		<result column="delete_flg" property="deleteFlg" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="countOfContactInfo" parameterType="com.shhege.madel.filter.ContactInfoFilter" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM
+			contact_info t
+		<where>
+			delete_flg != '1'
+			<if test="contactInfoFilter.contactName != null and contactInfoFilter.contactName !=''">
+				and t.contact_name like '%${contactInfoFilter.contactName}%'
+			</if>
+			<if test="contactInfoFilter.contactTel != null and contactInfoFilter.contactTel !=''">
+				and t.contact_tel = ${contactInfoFilter.contactTel}
+			</if>
+			<if test="contactInfoFilter.contactTitle != null and contactInfoFilter.contactTitle !=''">
+				and t.contact_title like '%${contactInfoFilter.contactTitle}%'
+			</if>
+			<if test="contactInfoFilter.contactTimeForm != null and contactInfoFilter.contactTimeForm !=''">
+				<![CDATA[ and t.contact_time >= #{contactInfoFilter.contactTimeForm}]]>
+			</if>
+			<if test="contactInfoFilter.contactTimeTo != null and contactInfoFilter.contactTimeTo !=''">
+				<![CDATA[ and t.contact_time <= #{contactInfoFilter.contactTimeTo}]]>
+			</if>
+			<if test="contactInfoFilter.contactState != null and contactInfoFilter.contactState !=''">
+				and t.contact_state = ${contactInfoFilter.contactState}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findContactInfoByPage" parameterType="com.shhege.madel.filter.ContactInfoFilter" resultMap="ContactInfoPo">
+		SELECT
+			t.id,
+			t.contact_name,
+			t.contact_tel,
+			t.contact_content,
+			t.contact_title,
+			t.contact_time,
+			t.contact_state,
+			t.delete_flg
+		FROM
+			contact_info t
+		<where>
+			delete_flg != '1'
+			<if test="contactInfoFilter.contactName != null and contactInfoFilter.contactName !=''">
+				and t.contact_name like '%${contactInfoFilter.contactName}%'
+			</if>
+			<if test="contactInfoFilter.contactTel != null and contactInfoFilter.contactTel !=''">
+				and t.contact_tel = ${contactInfoFilter.contactTel}
+			</if>
+			<if test="contactInfoFilter.contactTitle != null and contactInfoFilter.contactTitle !=''">
+				and t.contact_title like '%${contactInfoFilter.contactTitle}%'
+			</if>
+			<if test="contactInfoFilter.contactTimeForm != null and contactInfoFilter.contactTimeForm !=''">
+				<![CDATA[ and t.contact_time >= #{contactInfoFilter.contactTimeForm}]]>
+			</if>
+			<if test="contactInfoFilter.contactTimeTo != null and contactInfoFilter.contactTimeTo !=''">
+				<![CDATA[ and t.contact_time <= #{contactInfoFilter.contactTimeTo}]]>
+			</if>
+			<if test="contactInfoFilter.contactState != null and contactInfoFilter.contactState !=''">
+				and t.contact_state = ${contactInfoFilter.contactState}
+			</if>
+		</where>
+		ORDER BY t.contact_time desc
+		LIMIT #{start}, #{count}
+	</select>
+	
+	<select id="findContactInfo" parameterType="java.lang.String" resultMap="ContactInfoPo">
+		SELECT
+			t.id,
+			t.contact_name,
+			t.contact_tel,
+			t.contact_content,
+			t.contact_title,
+			t.contact_state,
+			t.contact_time,
+			t.delete_flg
+		FROM
+			contact_info t
+		WHERE t.delete_flg != '1' AND t.id = #{id}
+	</select>
+	
+	<update id="updateContactInfo" parameterType="com.shhege.madel.po.ContactInfoPo" >
+		UPDATE contact_info
+    <set>
+      <if test="contactInfoPo.contactName != null" >
+        contact_name = #{contactInfoPo.contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfoPo.contactTel != null" >
+        contact_tel = #{contactInfoPo.contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfoPo.contactContent != null" >
+        contact_content = #{contactInfoPo.contactContent,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfoPo.contactTitle != null" >
+        contact_title = #{contactInfoPo.contactTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfoPo.contactState != null" >
+        contact_state = #{contactInfoPo.contactState,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfoPo.deleteFlg != null" >
+        delete_flg = #{contactInfoPo.deleteFlg,jdbcType=CHAR},
+      </if>
+    </set>
+    WHERE id = #{contactInfoPo.id,jdbcType=VARCHAR}
+ 	</update>
+  	
+ 	<insert id="insertContactInfo" parameterType="com.shhege.madel.po.ContactInfoPo" >
+    INSERT INTO contact_info (
+    	id,
+    	contact_name,
+    	contact_tel,
+    	contact_content,
+    	contact_title,
+    	contact_time,
+    	contact_state,
+    	delete_flg
+      )
+    VALUES (
+    	#{contactInfoPo.id,jdbcType=VARCHAR},
+    	#{contactInfoPo.contactName,jdbcType=VARCHAR},
+    	#{contactInfoPo.contactTel,jdbcType=VARCHAR},
+    	#{contactInfoPo.contactContent,jdbcType=VARCHAR},
+    	#{contactInfoPo.contactTitle,jdbcType=VARCHAR},
+    	#{contactInfoPo.contactTime,jdbcType=TIMESTAMP},
+    	#{contactInfoPo.contactState,jdbcType=VARCHAR},
+    	#{contactInfoPo.deleteFlg,jdbcType=CHAR}
+      )
+ 	</insert>
+	
+</mapper>

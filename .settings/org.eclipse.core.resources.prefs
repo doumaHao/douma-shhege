@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/view/web/common/common_footer.htm=UTF-8
+encoding//WebContent/WEB-INF/view/web/contact.htm=UTF-8
+encoding//WebContent/WEB-INF/view/web/index.htm=UTF-8
+encoding//src/conf/alioss.properties=UTF-8
+encoding//src/conf/log4j.properties=UTF-8
+encoding//src/conf/velocity.properties=UTF-8
+encoding//src/java/com/shhege/common/mv/AdminCommonModeAndView.java=UTF-8
+encoding//src/java/com/shhege/constroller/alioss/AliOssConstroller.java=UTF-8
+encoding/<project>=UTF-8

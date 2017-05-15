@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>人才招聘</title>
+#parse("web/common/common_link.htm")
+<style>
+	.grid_5 h3, .grid_5 h2, .grid_5 h1, .grid_5 h4, .grid_5 h5, h3.hdg, h3.bars{
+		color: #444;
+	}
+	.grid_3 p{
+		color: #333;
+	}
+</style>
+</head>
+<body>
+	#parse("web/common/common_banner.htm")
+	<div class="typo">
+		<div class="container">
+			<div class="grid_3 grid_5">
+				<h3>人才招聘</h3>
+				<div class="well">
+					$!advertises
+				</div>
+			</div>
+		</div>
+	</div>
+	#parse("web/common/common_footer.htm")
+</body>
+</html>

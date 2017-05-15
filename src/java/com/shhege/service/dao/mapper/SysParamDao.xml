@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shhege.service.dao.SysParamDao">
+
+	<resultMap id="SysParamPo" type="SysParamPo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="param_type" property="paramType" jdbcType="VARCHAR" />
+		<result column="param_key" property="paramKey" jdbcType="VARCHAR" />
+		<result column="param_value" property="paramValue" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="findValueByKey" parameterType="java.lang.String" resultMap="SysParamPo">
+		SELECT
+			t.id, t.param_key, t.param_type, t.param_value
+		FROM
+			sys_param t
+		WHERE
+			t.param_key = #{key}
+	</select>
+	
+	<select id="findValuesByKeys" parameterType="java.util.List" resultMap="SysParamPo">
+		SELECT
+			t.id, t.param_key, t.param_type, t.param_value
+		FROM
+			sys_param t
+		WHERE
+			t.param_key in 
+			<foreach collection="keys" item="key" index="index" open="(" close=")" separator=",">
+	            #{key}
+	        </foreach>
+	</select>
+	<update id="updateSysParamByKey" parameterType="java.lang.String" >
+		update 
+			sys_param
+		<set>
+			param_value = #{value}
+		</set>
+		where param_key = #{key}
+  	</update>
+</mapper>

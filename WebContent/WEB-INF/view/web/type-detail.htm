@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>产品中心</title>
+#parse("web/common/common_link.htm")
+</head>
+<body>
+	#parse("web/common/common_banner.htm")
+	<div class="about-bottom product-banner">
+		<div class="container">
+			<div class="about-bottom-grids">
+				<div class="col-md-2 product-banner-col">
+					<a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id1">
+						<img src="$!productCatagoryVo.imgUrl1" alt="">
+						<p class="type-name">$!productCatagoryVo.name1</p>
+					</a>
+				</div>
+				<div class="col-md-2 product-banner-col">
+					<a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id2">
+						<img src="$!productCatagoryVo.imgUrl2" alt="">
+						<p class="type-name">$!productCatagoryVo.name2</p>
+					</a>
+				</div>
+				<div class="col-md-2 product-banner-col">
+					<a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id3">
+						<img src="$!productCatagoryVo.imgUrl3" alt="">
+						<p class="type-name">$!productCatagoryVo.name3</p>
+					</a>
+				</div>
+				<div class="col-md-2 product-banner-col">
+					<a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id4">
+						<img src="$!productCatagoryVo.imgUrl4" alt="">
+						<p class="type-name">$!productCatagoryVo.name4</p>
+					</a>
+				</div>
+				<div class="col-md-2 product-banner-col">
+					<a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id5">
+						<img src="$!productCatagoryVo.imgUrl5" alt="">
+						<p class="type-name">$!productCatagoryVo.name5</p>
+					</a>
+				</div>
+				<div class="col-md-2 product-banner-col">
+					<a href="$!contextPath/product/classify.do?catagotyId=$!productCatagoryVo.id6">
+						<img src="$!productCatagoryVo.imgUrl6" alt="">
+						<p class="type-name">$!productCatagoryVo.name6</p>
+					</a>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<div class="gallery">		
+		<div class="container">
+			<h3>$!productCatagoryName</h3>
+			<div class="top-gallery">
+#foreach($productInfoPo in $!productInfoPoList)
+				<div class="col-md-3 gallery-grid gallery1">
+					<a href="$!contextPath/product/details.do?productId=$!productInfoPo.id&catagoryId=$!catagotyId" class="swipebox" target="_blank">
+						<img src="$!productInfoPo.productImg" class="img-responsive" alt="/">
+						<div class="textbox">
+							<h4>$!productInfoPo.productName</h4>
+							<p></p>
+						</div>
+					</a>
+				</div>
+#end
+				<div class="clearfix"> </div>
+			</div>
+			<link rel="stylesheet" href="$!viewFile/css/swipebox.css">
+			<script src="$!viewFile/js/jquery.swipebox.min.js"></script> 
+			<script type="text/javascript">
+				/*jQuery(function($) {
+					$(".swipebox").swipebox();
+				});*/
+			</script>
+		</div>
+	</div>
+	#parse("web/common/common_footer.htm")
+</body>
+</html>

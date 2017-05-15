@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>客户管理</title>
+  #parse("admin/common/common_css.htm")
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  #parse("admin/common/common_header.htm")
+  #parse("admin/common/common_aside.htm")
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        <small> </small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>系统</a></li>
+        <li class="active"><a href="#">客户管理</a></li>
+      </ol>
+    </section>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">客户管理</h3>
+      </div>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label">名称</label>
+            <div class="col-sm-2">
+              <input id="customerName" type="text" class="form-control" value="$!customerInfoFilter.customerName">
+            </div>
+            <label for="" class="col-sm-1 control-label">称呼</label>
+            <div class="col-sm-2">
+              <input id="customerTitle" type="text" class="form-control" value="$!customerInfoFilter.customerTitle">
+            </div>
+            <label for="" class="col-sm-1 control-label">座机</label>
+            <div class="col-sm-2">
+              <input id="customerTel" type="text" class="form-control" value="$!customerInfoFilter.customerTel">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label">手机</label>
+            <div class="col-sm-2">
+              <input id="customerMob" type="text" class="form-control" value="$!customerInfoFilter.customerMob">
+            </div>
+            <label for="" class="col-sm-1 control-label">级别</label>
+            <div class="col-sm-2">
+              <select id="customerLv" class="form-control">
+              	<option value="" #if(!$!customerInfoFilter.customerLv) selected #end>全部</option>
+              	<option value="10" #if($!customerInfoFilter.customerLv == "10") selected #end>至关重要</option>
+              	<option value="20" #if($!customerInfoFilter.customerLv == "20") selected #end>重要</option>
+              	<option value="30" #if($!customerInfoFilter.customerLv == "30") selected #end>普通</option>
+              	<option value="40" #if($!customerInfoFilter.customerLv == "40") selected #end>不重要</option>
+              	<option value="50" #if($!customerInfoFilter.customerLv == "50") selected #end>忽视</option>
+              </select>
+            </div>
+            <label for="" class="col-sm-1 control-label">状态</label>
+            <div class="col-sm-2">
+              <select id="customerState" class="form-control">
+              	<option value="" #if(!$!customerInfoFilter.customerState) selected #end>全部</option>
+              	<option value="10" #if($!customerInfoFilter.customerState == "10") selected #end>初期意向</option>
+              	<option value="20" #if($!customerInfoFilter.customerState == "20") selected #end>已沟通</option>
+              	<option value="30" #if($!customerInfoFilter.customerState == "30") selected #end>交易中</option>
+              	<option value="40" #if($!customerInfoFilter.customerState == "40") selected #end>已交易</option>
+              	<option value="50" #if($!customerInfoFilter.customerState == "50") selected #end>删除</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-1 control-label"></label>
+            <div class="col-sm-2">
+              <button id="queryBtn" type="button" class="btn btn-info">检索</button>
+              <button id="resetBtn" type="button" class="btn btn-default">重置</button>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="box">
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>选择</th>
+                  <th>级别</th>
+                  <th>名称</th>
+                  <th>QQ</th>
+                  <th>座机</th>
+                  <th>手机</th>
+                  <th>公司</th>
+                  <th>状态</th>
+                  <th>需求</th>
+                </tr>
+                </thead>
+                <tbody>
+#foreach($customerInfoPo in $!page.pageData)
+					<tr
+#if($!customerInfoPo.customerLv == 10) style="color:#157b15" 
+#elseif($!customerInfoPo.customerLv == 40) style="color:rgba(189, 234, 212, 0.93)"
+#elseif($!customerInfoPo.customerLv == 50) style="color:rgba(230, 157, 17, 0.93)" 
+#end
+					>
+                    <td>
+                      <input name="trCheckbox" type="checkbox" class="minimal">
+                      <input name="id" type="hidden" value="$!customerInfoPo.id">
+                    </td>
+                    <td>
+                    #if($!customerInfoPo.customerLv == "10") 至关重要
+                    #elseif($!customerInfoPo.customerLv == "20") 重要
+                    #elseif($!customerInfoPo.customerLv == "30") 普通
+                    #elseif($!customerInfoPo.customerLv == "40") 不重要
+                    #elseif($!customerInfoPo.customerLv == "50") 忽视
+                    #end
+                    </td>
+                    <td>$!customerInfoPo.customerName</td>
+                    <td>$!customerInfoPo.customerTitle</td>
+                    <td>$!customerInfoPo.customerTel</td>
+                    <td>$!customerInfoPo.customerMob</td>
+                    <td>$!customerInfoPo.customerCompany</td>
+                    <td>
+                    #if($!customerInfoPo.customerState == "10") 初期意向
+                    #elseif($!customerInfoPo.customerState == "20") 已沟通
+                    #elseif($!customerInfoPo.customerState == "30") 交易中
+                    #elseif($!customerInfoPo.customerState == "40") 已交易
+                    #elseif($!customerInfoPo.customerState == "50") 删除
+                    #end
+                    </td>
+                    <td>$!customerInfoPo.customerNeed</td>
+                  </tr>
+#end
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="box-footer">
+        <button id="add" type="button" class="btn btn-info">新建</button>
+        <button id="edit" type="button" class="btn btn-info">修改</button>
+        <button id="delete" type="button" class="btn btn-info">删除</button>
+        
+        <ul class="pagination pagination-sm no-margin pull-right">
+          <li><a id="firstPage" href="$!contextPath/customer.do?pageIndex=1">首页</a></li>
+          <li><a id="prePage" href="$!contextPath/customer.do?pageIndex=$!page.pagePre">上一页</a></li>
+          <li><a id="nowPage" href="javascript:void(0);">$!page.pageIndex ( 共$!page.pageCount页 )</a></li>
+          <li><a id="nextPage" href="$!contextPath/customer.do?pageIndex=$!page.pageNext">下一页</a></li>
+          <li><a id="lastPage" href="$!contextPath/customer.do?pageIndex=$!page.pageCount">尾页</a></li>
+       	</ul>
+      </div>
+    </div>
+  </div>
+
+  #parse("admin/common/common_footer.htm")
+
+</div>
+#parse("admin/common/common_js.htm")
+<script>
+$(function(){
+	
+	//复选框样式
+	$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+	    checkboxClass: 'icheckbox_minimal-blue',
+	    radioClass: 'iradio_minimal-blue'
+  	});
+	
+	//检索
+	$("#queryBtn").click(function(){
+		var customerName = $("#customerName").val();
+		var customerTitle = $("#customerTitle").val();
+		var customerTel = $("#customerTel").val();
+		var customerMob = $("#customerMob").val();
+		var customerLv = $("#customerLv").val();
+		var customerState = $("#customerState").val();
+		var queryStr = 
+			  "customerName="+customerName+
+			  "&customerTitle="+customerTitle+
+			  "&customerTel="+customerTel+
+			  "&customerMob="+customerMob+
+			  "&customerLv="+customerLv+
+			  "&customerState="+customerState;
+	  	window.location.href = "$!contextPath/customer.do?"+queryStr;
+	});
+	
+	//重置
+	$("#resetBtn").click(function(){
+		$("#customerName").val("");
+		$("#customerTitle").val("");
+		$("#customerTel").val("");
+		$("#customerMob").val("");
+		$("#customerLv").val("");
+		$("#customerState").val("");
+	});
+	
+	//增加
+	$("#add").click(function(){
+		window.location.href = "$!contextPath/customer/detail.do?oper=add";
+	});
+	//详情
+	$("tr").dblclick(function(){
+	  var id = $(this).find("[name='id']").val();
+	  if(!id){
+		  alert("请先选择一条数据进行操作");
+	  } else {
+		  window.location.href = "$!contextPath/customer/detail.do?oper=detail&id="+id;
+	  }
+	});
+	//修改
+	$("#edit").click(function(){
+		var id = $("[name='trCheckbox']:checked").parents("td").find("[name='id']").val();
+	  if(!id){
+		  alert("请先选择一条数据进行操作");
+	  } else {
+		  window.location.href = "$!contextPath/customer/detail.do?oper=edit&id="+id;
+	  }
+	});
+	//删除
+	$("#delete").click(function(){
+		var id = $("[name='trCheckbox']:checked").parents("td").find("[name='id']").val();
+	  if(!id){
+		  alert("请先选择一条数据进行操作");
+	  } else {
+		  var data = {id: id};
+		  ajax(
+				  "$!contextPath/customer/delete.json",
+				  data,
+				  function(data){
+					  if(!!data && data.success){
+						  window.location.href = "$!contextPath/customer.do";
+					  } 
+				  });
+	  }
+	});
+	
+	//选择与取消选择
+	$("ins").click(function(){
+		var thiz = $(this).parents("td").find("[name='trCheckbox']");
+		if(thiz.is(":checked")){
+			$("[name='trCheckbox']").iCheck('uncheck');
+			thiz.iCheck('check');
+		} else {
+			
+		}
+	});
+	
+	//td鼠标移动上去显示
+	$("tr").mouseover(function(){
+		$(this).addClass("tr-hover");
+	});
+	$("tr").mouseout(function(){
+		$(this).removeClass("tr-hover");
+	});
+	
+});
+</script>
+</body>
+</html>

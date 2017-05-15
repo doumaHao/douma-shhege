@@ -1,0 +1,16 @@
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000001', 'CHAR', 'key_sysParam_adminUsername', 'shhege-admin');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000002', 'CHAR', 'key_sysParam_adminPassword', '7daacacd74600072b6fc7bd93f10d669');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000003', 'CHAR', 'key_sysParam_companyTel', '021-57543089');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000004', 'CHAR', 'key_sysParam_companyFox', '021-57540260');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000005', 'CHAR', 'key_sysParam_companyEmail', 'huger@shhuger.com');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000006', 'CHAR', 'key_sysParam_companyAddress', '上 海 市 奉 贤 区 平 福 路 918 号');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000007', 'CHAR', 'key_sysParam_recordNo', '沪ICP备09072691号-2');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000008', 'CHAR', 'key_sysParam_copyRight', '2017');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000009', 'CHAR', 'key_sysParam_saleTel', '18501695751');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000010', 'CHAR', 'key_sysParam_technicalTel', '13501919160');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000011', 'PIC', 'key_sysParam_indexImg1', '');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000012', 'PIC', 'key_sysParam_indexImg2', '');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000013', 'PIC', 'key_sysParam_indexImg3', '');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000014', 'CHAR', 'key_sysParam_indexImgTime', '');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000015', 'TEXT', 'key_sysParam_advertises', '');
+insert into sys_param (id, param_type, param_key, param_value) values ('sysinit0sysparam0000000000000016', 'PIC', 'key_sysParam_userImg', '');
