@@ -26,8 +26,8 @@ import com.aliyun.oss.model.PutObjectResult;
 public class OSSClientUtil {
  
   private String endpoint = "oss-cn-shanghai.aliyuncs.com";
-  private String accessKeyId = "LTAIUwCHHejtv6Qx";
-  private String accessKeySecret = "NbTj17bgAhF7hymSrdZzUkysvzYQ7x";
+  private String accessKeyId = "";
+  private String accessKeySecret = "";
   private String bucketName = "haoxijun";
   private String filedir = "data/";
  
